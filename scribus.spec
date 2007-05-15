@@ -1,6 +1,6 @@
-%define	name	scribus
-%define version 1.3.3.8
-%define	rel	1
+%define name    scribus
+%define version 1.3.3.9
+%define rel     1
 %define release %mkrel %{rel}
 
 %define	major	0
@@ -13,8 +13,8 @@ Summary: 	Scribus layout program
 Name: 		%name
 Version: 	%version
 Release:	%release
-Packager:       Mandriva Linux KDE Team <kde@mandriva.com>
-Source0:	http://ovh.dl.sourceforge.net/sourceforge/scribus/%name-%{version}.tar.bz2
+Packager:	Mandriva Linux KDE Team <kde@mandriva.com>
+Source0:	http://downloads.sourceforge.net/scribus/scribus-%{version}.tar.bz2
 Source1:	%name-i18n-de.tar.bz2
 Source2:	%name-i18n-fr.tar.bz2
 Source3:	%name-i18n-en.tar.bz2
@@ -22,17 +22,20 @@ Source4:	%name-samples-0.1.tar.bz2
 
 URL: 		http://www.scribus.net/
 
-License: 	GPL
-Group: 		Office
-BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+License:	GPL
+Group:  	Office
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 BuildRequires:	autoconf2.5
-Buildrequires:	lcms-devel
-BuildRequires:	qt3-devel libart_lgpl-devel tiff-devel
+BuildRequires:	cups-devel
+BuildRequires:	lcms-devel
+BuildRequires:	libart_lgpl-devel
+BuildRequires:	qt3-devel
+BuildRequires:	tiff-devel
 
 Requires:	%libname = %version
 Obsoletes:	kde3-scribus 
-Provides:  	kde3-scribus 
+Provides:	kde3-scribus 
 
 %description
 Scribus is a DTP (Desktop Publishing) application in the tradtion of
@@ -96,13 +99,7 @@ Requires:	%name locales-fr
 French documentation for scribus.
 
 %prep
-
 %setup -q -a1 -a2 -a3 -a4
-
-# this is a kludge!
-touch aclocal.m4
-find . -name Makefile.in | xargs touch
-autoconf
 
 %build
 export QTDIR=%_prefix/lib/qt3
@@ -115,19 +112,23 @@ export QTLIB=$QTDIR/%{_lib}
 export CFLAGS="$RPM_OPT_FLAGS -I/usr/include/lcms"
 export CXXFLAGS="$RPM_OPT_FLAGS -I/usr/include/lcms"
 
-%configure --disable-debug
+if [ ! -f configure ]; then
+	make -f Makefile.cvs
+fi
 
-#configure i18n and plugins
-for i in %name-i18n-de %name-i18n-fr ; do cd $i; ./configure --prefix=/usr; cd ..; done
+%configure --enable-cairo --disable-debug
+
+#configure i18n
+for i in %name-i18n-de %name-i18n-fr %name-i18n-en ; do
+	cd $i; ./configure --prefix=/usr; cd ..;
+done
+
+#samples
+cd %name-samples-0.1
+%configure
+cd ..
 
 %make
-
-# build en doc
-cd %name-i18n-en ; %configure ; %make ; cd ..
-
-# build samples
-cd %name-samples-0.1 ; %configure ; %make ; cd ..
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -163,13 +164,6 @@ StartupNotify=true
 Categories=Qt;KDE;Office;X-KDE-More;X-MandrivaLinux-Office-Publishing;
 EOF
 %endif
-
-
-#build i18n
-for i in %name-i18n-de %name-i18n-fr ; do cd $i; %make; %makeinstall; cd ..; done
-
-cd %name-i18n-en ; %makeinstall ; cd ..
-cd %name-samples-0.1 ; %makeinstall ; cd ..
 
 %post
 %update_menus
