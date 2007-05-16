@@ -30,6 +30,7 @@ BuildRequires:	autoconf2.5
 BuildRequires:	cups-devel
 BuildRequires:	lcms-devel
 BuildRequires:	libart_lgpl-devel
+BuildRequires:	libgdk_pixbuf2.0-devel
 BuildRequires:	qt3-devel
 BuildRequires:	tiff-devel
 
