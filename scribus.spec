@@ -29,6 +29,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	autoconf2.5
 BuildRequires:	cups-devel
 BuildRequires:	lcms-devel
+BuildRequires:	libart_lgpl-devel
 BuildRequires:	libcairo-devel
 BuildRequires:	qt3-devel
 BuildRequires:	tiff-devel
