@@ -6,26 +6,15 @@
 %define	major	0
 %define	libname	%mklibname %name %major
 
-# Data should better live in %{_datadir}/scribus/
-%define scribusdir %{_libdir}/scribus
-
-Summary: 	Scribus layout program
+Summary: 	Scribus - Open Source Page Layout
 Name: 		%name
 Version: 	%version
 Release:	%release
-Packager:	Mandriva Linux KDE Team <kde@mandriva.com>
 Source0:	http://downloads.sourceforge.net/scribus/scribus-%{version}.tar.bz2
-Source1:	%name-i18n-de.tar.bz2
-Source2:	%name-i18n-fr.tar.bz2
-Source3:	%name-i18n-en.tar.bz2
-Source4:	%name-samples-0.1.tar.bz2
-
 URL: 		http://www.scribus.net/
-
 License:	GPL
 Group:  	Office
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-
 BuildRequires:	autoconf2.5
 BuildRequires:	cups-devel
 BuildRequires:	lcms-devel
@@ -36,22 +25,22 @@ BuildRequires:	tiff-devel
 
 Requires:	%libname = %version
 Obsoletes:	kde3-scribus 
-Provides:	kde3-scribus 
+Provides:	kde3-scribus
+
+Obsoletes:    scribus-i18en
+Obsoletes:    scribus-i18de
+Obsoletes:    scribus-i18fr
 
 %description
-Scribus is a DTP (Desktop Publishing) application in the tradtion of
-Xpress, Pagemaker or similar. At the moment it is still in the early
-stages of development, but fairly usable. You can do all the important
-things, such as embedding pictures, placing text on a page and much
-more.
+Scribus is a desktop open source page layout program with the aim of
+producing commerical grade output in PDF and Postscript, primarily,
+though not exclusively, for Linux.
 
-Printing is done via the application's own Postscript driver, since the
-driver supplied by Qt has too many limitations and each version of it
-has its own faults. The driver that ships with Scribus can embed fonts
-for printing and can use EPS images at high quality.
-
-At the moment Scribus supports only Type1 (Postscript) and TrueType
-fonts.
+While the goals of the program are ease of use and simple
+easy-to-understand tools, Scribus offers support for professional
+publishing features, such as CMYK colors, easy PDF creation,
+Encapsulated Postscript import and export, and creation of color
+separations.
 
 %package -n	%libname
 Summary:	Main libraries for %name
@@ -59,7 +48,6 @@ Group:		System/Libraries
 
 Obsoletes:	libkde3-scribus0 
 Provides:	libkde3-scribus0 
-
 
 %description -n	%{libname}
 This package contains the library needed to run programs dynamically
@@ -83,24 +71,8 @@ If you are going to develop programs which will use this library
 you should install %{libname}-devel.  You'll also need to have the %name
 package installed.
 
-%package -n	%name-i18n-de
-Summary:	German documentation for scribus
-Group:		Office
-Requires:	%name locales-de
-
-%description -n	%name-i18n-de
-German documentation for scribus.
-
-%package -n	%name-i18n-fr
-Summary:	French documentation for scribus
-Group:		Office
-Requires:	%name locales-fr
-
-%description -n	%name-i18n-fr
-French documentation for scribus.
-
 %prep
-%setup -q -a1 -a2 -a3 -a4
+%setup -q
 
 %build
 export QTDIR=%_prefix/lib/qt3
@@ -119,16 +91,6 @@ fi
 
 %configure --enable-cairo --disable-debug
 
-#configure i18n
-for i in %name-i18n-de %name-i18n-fr %name-i18n-en ; do
-	cd $i; ./configure --prefix=/usr; cd ..;
-done
-
-#samples
-cd %name-samples-0.1
-%configure
-cd ..
-
 %make
 
 %install
@@ -138,40 +100,18 @@ rm -rf $RPM_BUILD_ROOT
 # lib and pugins in not install in good directory.
 %makeinstall
 
-install -d -m 0755 %buildroot/%_menudir
-cat > %buildroot/%_menudir/%{name} <<EOF
-?package(%{name}): \
-command="scribus" \
-title="Scribus" \
-longtitle="Scribus layout program" \
-needs="x11" \
-section="Applications/Publishing" \
-icon="wordprocessor_section.png" \
-xdg="true"
-EOF
-
-%if %mdkversion > 200600
-mkdir $RPM_BUILD_ROOT%{_datadir}/applications
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/scribus.desktop << EOF
-[Desktop Entry]
-Encoding=UTF-8
-Name=Scribus
-Comment=Scribus layout program
-Exec=scribus
-Icon=wordprocessor_section.png
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=Qt;KDE;Office;X-KDE-More;X-MandrivaLinux-Office-Publishing;
-EOF
-%endif
+install -d %buildroot{_datadir}/applications
+install scribus.desktop %buildroot{_datadir}/applications/
+install -d %buildroot{_datadir}/mime/packages
+install scribus.xml %buildroot {_datadir}/mime/packages/scribus.xml
 
 %post
 %update_menus
+%update_mime_database
 
 %postun
 %clean_menus
-
+%update_mime_database
 
 %post -n %{libname} -p /sbin/ldconfig                                                                                                        
 %postun -n %{libname} -p /sbin/ldconfig                                                                                                      
@@ -181,57 +121,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc AUTHORS COPYING ChangeLog README TODO
-%_bindir/*
-%_menudir/*
-
-%if %mdkversion > 200600
-%{_datadir}/applications/scribus.desktop
-%endif
-%dir %{scribusdir}
-%{scribusdir}/*.qm
-#%{scribusdir}/*.enc
-#%{scribusdir}/*.jpg
-%{_datadir}/scribus
-%_datadir/mime/packages/scribus.xml
-%_libdir//scribus/swatches/*.txt
-
-%{scribusdir}/import.prolog
-%{scribusdir}/profiles
-%{scribusdir}/dicts
-
-%{_prefix}/lib/scribus/samples
-%{scribusdir}/plugins
-
-#%dir %{scribusdir}/icons/
-#%{scribusdir}/icons/*.xpm
-#%{scribusdir}/icons/*.png
-#%{scribusdir}/icons/*.jpg
-
-%_datadir/man/man1/scribus.1*
-%_datadir/man/pl/man1/scribus.1*
-
-%{_prefix}/lib/scribus/doc/en
-%_libdir/scribus/keysets/scribus13.ksxml
+%doc AUTHORS COPYING ChangeLog README TODO BUILDING ChangeLogCVS INSTALL NEWS PACKAGING README.MacOSX
+%{_bindir}/*
+%{_datadir}/applications/*.desktop
+%{_mandir}/*/*
 %{_datadir}/pixmaps/*
-
-%files -n %{libname}
-%defattr(-,root,root)
-%doc AUTHORS COPYING
-#%_libdir/%name/libs/*.so*
+%{_libdir}/scribus
+%{_datadir}/mime/packages/*.xml
+%{_datadir}/share/scribus
+%{_docdir}/scribus
+%lang(pl) %dir %{_mandir}/pl
+%lang(pl) %dir %{_mandir}/pl/man1
 
 %files -n %{libname}-devel
 %defattr(-,root,root)
 %doc AUTHORS COPYING
-#%_libdir/%name/libs/*a
 %_includedir/%name/*
-
-%files -n %name-i18n-fr
-%defattr(-,root,root)
-%_datadir/scribus/doc/fr
-
-%files -n %name-i18n-de
-%defattr(-,root,root)
-%_datadir/scribus/doc/de
-
-
