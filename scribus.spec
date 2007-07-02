@@ -1,6 +1,6 @@
 %define name    scribus
 %define version 1.3.3.9
-%define rel     2
+%define rel     3
 %define release %mkrel %{rel}
 
 %define	major	0
@@ -23,6 +23,8 @@ BuildRequires:	libart_lgpl-devel
 BuildRequires:	libcairo-devel
 BuildRequires:	qt3-devel
 BuildRequires:	tiff-devel
+BuildRequires:	python-devel
+BuildRequires:	libtiff-devel
 
 Obsoletes:	kde3-scribus 
 Provides:	kde3-scribus
