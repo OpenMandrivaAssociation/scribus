@@ -1,6 +1,6 @@
 %define name    scribus
 %define version 1.3.3.9
-%define rel     1
+%define rel     2
 %define release %mkrel %{rel}
 
 %define	major	0
