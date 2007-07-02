@@ -5,6 +5,7 @@
 
 %define	major	0
 %define	libname	%mklibname %name %major
+%define develname %{name}-devel
 
 Summary: 	Scribus - Open Source Page Layout
 Name: 		%name
@@ -23,13 +24,13 @@ BuildRequires:	libcairo-devel
 BuildRequires:	qt3-devel
 BuildRequires:	tiff-devel
 
-Requires:	%libname = %version
 Obsoletes:	kde3-scribus 
 Provides:	kde3-scribus
 
 Obsoletes:    scribus-i18en
 Obsoletes:    scribus-i18de
 Obsoletes:    scribus-i18fr
+Obsoletes:	%libname
 
 %description
 Scribus is a desktop open source page layout program with the aim of
@@ -42,28 +43,14 @@ publishing features, such as CMYK colors, easy PDF creation,
 Encapsulated Postscript import and export, and creation of color
 separations.
 
-%package -n	%libname
-Summary:	Main libraries for %name
-Group:		System/Libraries
-
-Obsoletes:	libkde3-scribus0 
-Provides:	libkde3-scribus0 
-
-%description -n	%{libname}
-This package contains the library needed to run programs dynamically
-linked with %name.                                                                                                                            
-
-%package -n	%{libname}-devel
+%package -n	%{develname}
 Summary:	Development tools for programs which will use the %libname library
 Group:		Development/C++
-Requires:	%{libname} = %{version}
-Provides:	%{name}-devel = %{version}-%{release}
-Provides:	lib%{name}-devel = %{version}-%{release}
-
+Obsoletes:	%{libname}-devel
 Obsoletes:	libkde3-scribus0-devel
 Provides:	libkde3-scribus0-devel
 
-%description -n	%{libname}-devel
+%description -n	%{develname}
 The %{libname}-devel package includes the header files and static libraries
 necessary for developing programs using the %{libname} library.
 
@@ -89,7 +76,7 @@ if [ ! -f configure ]; then
 	make -f Makefile.cvs
 fi
 
-%configure --enable-cairo --disable-debug
+%configure --enable-cairo --disable-debug --docdir=%{_docdir}/%{name}
 
 %make
 
@@ -100,10 +87,12 @@ rm -rf $RPM_BUILD_ROOT
 # lib and pugins in not install in good directory.
 %makeinstall
 
-install -d %buildroot{_datadir}/applications
-install scribus.desktop %buildroot{_datadir}/applications/
-install -d %buildroot{_datadir}/mime/packages
-install scribus.xml %buildroot {_datadir}/mime/packages/scribus.xml
+install -d %buildroot%{_datadir}/applications
+install scribus.desktop %buildroot%{_datadir}/applications/
+install -d %buildroot%{_datadir}/mime/packages
+install scribus.xml %buildroot%{_datadir}/mime/packages/scribus.xml
+
+mv %buildroot%{_docdir}/%{name}-%{version} %buildroot%{_docdir}/%{name}
 
 %post
 %update_menus
@@ -111,29 +100,25 @@ install scribus.xml %buildroot {_datadir}/mime/packages/scribus.xml
 
 %postun
 %clean_menus
-%update_mime_database
-
-%post -n %{libname} -p /sbin/ldconfig                                                                                                        
-%postun -n %{libname} -p /sbin/ldconfig                                                                                                      
+%clean_mime_database
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc AUTHORS COPYING ChangeLog README TODO BUILDING ChangeLogCVS INSTALL NEWS PACKAGING README.MacOSX
+%doc %{_docdir}/%{name}
 %{_bindir}/*
 %{_datadir}/applications/*.desktop
 %{_mandir}/*/*
 %{_datadir}/pixmaps/*
 %{_libdir}/scribus
 %{_datadir}/mime/packages/*.xml
-%{_datadir}/share/scribus
-%{_docdir}/scribus
+%{_datadir}/scribus
 %lang(pl) %dir %{_mandir}/pl
 %lang(pl) %dir %{_mandir}/pl/man1
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %doc AUTHORS COPYING
 %_includedir/%name/*
