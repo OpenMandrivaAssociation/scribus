@@ -45,6 +45,29 @@ publishing features, such as CMYK colors, easy PDF creation,
 Encapsulated Postscript import and export, and creation of color
 separations.
 
+%post
+%update_menus
+%update_mime_database
+
+%postun
+%clean_menus
+%clean_mime_database
+
+%files
+%defattr(-,root,root)
+%doc %{_docdir}/%{name}
+%{_bindir}/*
+%{_datadir}/applications/*.desktop
+%{_mandir}/*/*
+%{_datadir}/pixmaps/*
+%{_libdir}/scribus
+%{_datadir}/mime/packages/*.xml
+%{_datadir}/scribus
+%lang(pl) %dir %{_mandir}/pl
+%lang(pl) %dir %{_mandir}/pl/man1
+
+#--------------------------------------------------------------------
+
 %package -n	%{develname}
 Summary:	Development tools for programs which will use the %libname library
 Group:		Development/C++
@@ -59,6 +82,13 @@ necessary for developing programs using the %{libname} library.
 If you are going to develop programs which will use this library
 you should install %{libname}-devel.  You'll also need to have the %name
 package installed.
+
+%files -n %{develname}
+%defattr(-,root,root)
+%doc AUTHORS COPYING
+%_includedir/%name/*
+
+#--------------------------------------------------------------------
 
 %prep
 %setup -q
@@ -96,31 +126,5 @@ install scribus.xml %buildroot%{_datadir}/mime/packages/scribus.xml
 
 mv %buildroot%{_docdir}/%{name}-%{version} %buildroot%{_docdir}/%{name}
 
-%post
-%update_menus
-%update_mime_database
-
-%postun
-%clean_menus
-%clean_mime_database
-
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%files
-%defattr(-,root,root)
-%doc %{_docdir}/%{name}
-%{_bindir}/*
-%{_datadir}/applications/*.desktop
-%{_mandir}/*/*
-%{_datadir}/pixmaps/*
-%{_libdir}/scribus
-%{_datadir}/mime/packages/*.xml
-%{_datadir}/scribus
-%lang(pl) %dir %{_mandir}/pl
-%lang(pl) %dir %{_mandir}/pl/man1
-
-%files -n %{develname}
-%defattr(-,root,root)
-%doc AUTHORS COPYING
-%_includedir/%name/*
