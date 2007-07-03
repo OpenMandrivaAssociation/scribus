@@ -1,6 +1,6 @@
 %define name    scribus
 %define version 1.3.3.9
-%define rel     3
+%define rel     4
 %define release %mkrel %{rel}
 
 %define	major	0
@@ -16,7 +16,7 @@ URL: 		http://www.scribus.net/
 License:	GPL
 Group:  	Office
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:	autoconf2.5
+BuildRequires:	autoconf
 BuildRequires:	cups-devel
 BuildRequires:	lcms-devel
 BuildRequires:	libart_lgpl-devel
@@ -58,13 +58,12 @@ separations.
 %doc %{_docdir}/%{name}
 %{_bindir}/*
 %{_datadir}/applications/*.desktop
-%{_mandir}/*/*
+%{_mandir}/man1/*
+%lang(pl) %{_mandir}/pl/man1/*
 %{_datadir}/pixmaps/*
 %{_libdir}/scribus
 %{_datadir}/mime/packages/*.xml
 %{_datadir}/scribus
-%lang(pl) %dir %{_mandir}/pl
-%lang(pl) %dir %{_mandir}/pl/man1
 
 #--------------------------------------------------------------------
 
@@ -76,11 +75,11 @@ Obsoletes:	libkde3-scribus0-devel
 Provides:	libkde3-scribus0-devel
 
 %description -n	%{develname}
-The %{libname}-devel package includes the header files and static libraries
+The %{develname} package includes the header files and static libraries
 necessary for developing programs using the %{libname} library.
 
 If you are going to develop programs which will use this library
-you should install %{libname}-devel.  You'll also need to have the %name
+you should install %{develname}-devel.  You'll also need to have the %name
 package installed.
 
 %files -n %{develname}
