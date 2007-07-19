@@ -25,6 +25,7 @@ BuildRequires:	qt3-devel
 BuildRequires:	tiff-devel
 BuildRequires:	python-devel
 BuildRequires:	libtiff-devel
+BuildRequires:	cmake
 
 Requires:	tkinter
 Requires:	ghostscript-common
@@ -96,21 +97,7 @@ package installed.
 %setup -q
 
 %build
-export QTDIR=%_prefix/lib/qt3
-export KDEDIR=%_prefix
-
-export LD_LIBRARY_PATH=$QTDIR/%{_lib}:$KDEDIR/%{_lib}:$LD_LIBRARY_PATH
-export PATH=$QTDIR/bin:$KDEDIR/bin:$PATH
-export QTLIB=$QTDIR/%{_lib}
-
-export CFLAGS="$RPM_OPT_FLAGS -I/usr/include/lcms"
-export CXXFLAGS="$RPM_OPT_FLAGS -I/usr/include/lcms"
-
-if [ ! -f configure ]; then
-	make -f Makefile.cvs
-fi
-
-%configure --enable-cairo --disable-debug --docdir=%{_docdir}/%{name}
+%cmake
 
 %make
 
@@ -119,7 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # Laurent don't use %%makeinstall it doesn't work
 # lib and pugins in not install in good directory.
-%makeinstall
+cd build
+%makeinstall_std
+cd -
 
 install -d %buildroot%{_datadir}/applications
 install scribus.desktop %buildroot%{_datadir}/applications/
