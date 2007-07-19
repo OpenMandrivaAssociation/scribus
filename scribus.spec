@@ -1,6 +1,6 @@
 %define name    scribus
 %define version 1.3.3.9
-%define rel     4
+%define rel     5
 %define release %mkrel %{rel}
 
 %define	major	0
@@ -25,6 +25,9 @@ BuildRequires:	qt3-devel
 BuildRequires:	tiff-devel
 BuildRequires:	python-devel
 BuildRequires:	libtiff-devel
+
+Requires:	tkinter
+Requires:	ghostscript-common
 
 Obsoletes:	kde3-scribus 
 Provides:	kde3-scribus
