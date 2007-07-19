@@ -64,7 +64,7 @@ separations.
 %{_datadir}/applications/*.desktop
 %{_mandir}/man1/*
 %lang(pl) %{_mandir}/pl/man1/*
-%{_datadir}/pixmaps/*
+#%{_datadir}/pixmaps/*
 %{_libdir}/scribus
 %{_datadir}/mime/packages/*.xml
 %{_datadir}/scribus
@@ -99,7 +99,7 @@ package installed.
 %build
 %cmake
 
-%make
+%make -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -112,6 +112,11 @@ cd -
 
 install -d %buildroot%{_datadir}/applications
 install scribus.desktop %buildroot%{_datadir}/applications/
+
+# fwang: cp include files now
+# or, not needed??
+install -d %buildrot%{_includedir}/%{name}
+install %{name}/*.h %buildrot%{_includedir}/%{name}/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
