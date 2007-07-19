@@ -112,10 +112,6 @@ cd -
 
 install -d %buildroot%{_datadir}/applications
 install scribus.desktop %buildroot%{_datadir}/applications/
-install -d %buildroot%{_datadir}/mime/packages
-install scribus.xml %buildroot%{_datadir}/mime/packages/scribus.xml
-
-mv %buildroot%{_docdir}/%{name}-%{version} %buildroot%{_docdir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
