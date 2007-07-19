@@ -107,7 +107,7 @@ rm -rf $RPM_BUILD_ROOT
 # Laurent don't use %%makeinstall it doesn't work
 # lib and pugins in not install in good directory.
 cd build
-%makeinstall_std
+%makeinstall
 cd -
 
 install -d %buildroot%{_datadir}/applications
@@ -115,8 +115,8 @@ install scribus.desktop %buildroot%{_datadir}/applications/
 
 # fwang: cp include files now
 # or, not needed??
-install -d %buildrot%{_includedir}/%{name}
-install %{name}/*.h %buildrot%{_includedir}/%{name}/
+install -d %buildroot%{_includedir}/%{name}
+install %{name}/*.h %buildroot%{_includedir}/%{name}/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
