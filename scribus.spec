@@ -12,6 +12,7 @@ Name: 		%name
 Version: 	%version
 Release:	%release
 Source0:	http://downloads.sourceforge.net/scribus/scribus-%{version}.tar.bz2
+Patch0:		scribus-1.3.3.9-cmake-libpath.patch
 URL: 		http://www.scribus.net/
 License:	GPL
 Group:  	Office
@@ -95,6 +96,7 @@ package installed.
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
 %cmake
@@ -107,7 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 # Laurent don't use %%makeinstall it doesn't work
 # lib and pugins in not install in good directory.
 cd build
-%makeinstall
+%makeinstall_std
 cd -
 
 install -d %buildroot%{_datadir}/applications
