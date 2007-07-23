@@ -1,6 +1,6 @@
 %define name    scribus
 %define version 1.3.3.9
-%define rel     5
+%define rel     6
 %define release %mkrel %{rel}
 
 %define	major	0
@@ -12,7 +12,9 @@ Name: 		%name
 Version: 	%version
 Release:	%release
 Source0:	http://downloads.sourceforge.net/scribus/scribus-%{version}.tar.bz2
+Source1:	vnd.scribus.desktop
 Patch0:		scribus-1.3.3.9-cmake-libpath.patch
+Patch1:		scribus-1.3.3.9-desktop-file.patch
 URL: 		http://www.scribus.net/
 License:	GPL
 Group:  	Office
@@ -63,6 +65,7 @@ separations.
 %doc %{_docdir}/%{name}
 %{_bindir}/*
 %{_datadir}/applications/*.desktop
+%{_datadir}/mimelnk/application/*.desktop
 %{_mandir}/man1/*
 %lang(pl) %{_mandir}/pl/man1/*
 #%{_datadir}/pixmaps/*
@@ -97,6 +100,7 @@ package installed.
 %prep
 %setup -q
 %patch0 -p0
+%patch1 -p0
 
 %build
 %cmake
@@ -114,6 +118,10 @@ cd -
 
 install -d %buildroot%{_datadir}/applications
 install scribus.desktop %buildroot%{_datadir}/applications/
+
+# fwang: install mimelnk for kde
+install -d %buildroot%{_datadir}/mimelnk/application
+install %SOURCE1 %buildroot%{_datadir}/mimelnk/application/
 
 # fwang: cp include files now
 # or, not needed??
