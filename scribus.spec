@@ -23,7 +23,6 @@ BuildRequires:	autoconf
 BuildRequires:	cups-devel
 BuildRequires:	lcms-devel
 BuildRequires:	libart_lgpl-devel
-BuildRequires:	libcairo-devel
 BuildRequires:	qt3-devel
 BuildRequires:	tiff-devel
 BuildRequires:	python-devel
