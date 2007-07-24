@@ -1,6 +1,6 @@
 %define name    scribus
 %define version 1.3.3.9
-%define rel     6
+%define rel     7
 %define release %mkrel %{rel}
 
 %define	major	0
@@ -28,6 +28,7 @@ BuildRequires:	tiff-devel
 BuildRequires:	python-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	cmake
+BuildRequires:	desktop-file-utils
 
 Requires:	tkinter
 Requires:	ghostscript-common
@@ -67,7 +68,6 @@ separations.
 %{_datadir}/mimelnk/application/*.desktop
 %{_mandir}/man1/*
 %lang(pl) %{_mandir}/pl/man1/*
-#%{_datadir}/pixmaps/*
 %{_libdir}/scribus
 %{_datadir}/mime/packages/*.xml
 %{_datadir}/scribus
@@ -116,7 +116,12 @@ cd build
 cd -
 
 install -d %buildroot%{_datadir}/applications
-install scribus.desktop %buildroot%{_datadir}/applications/
+desktop-file-install --vendor='' \
+	--dir %buildroot%{_datadir}/applications/ \
+	--remove-category='Application' \
+	--remove-category='WordProcessor' \
+	--add-category='Publishing' \
+	scribus.desktop
 
 # fwang: install mimelnk for kde
 install -d %buildroot%{_datadir}/mimelnk/application
