@@ -36,9 +36,9 @@ Requires:	ghostscript-common
 Obsoletes:	kde3-scribus 
 Provides:	kde3-scribus
 
-Obsoletes:    scribus-i18en
-Obsoletes:    scribus-i18de
-Obsoletes:    scribus-i18fr
+Obsoletes:    scribus-i18n-en
+Obsoletes:    scribus-i18n-de
+Obsoletes:    scribus-i18n-fr
 Obsoletes:	%libname
 
 %description
