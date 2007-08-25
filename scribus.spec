@@ -1,7 +1,6 @@
 %define name    scribus
-%define version 1.3.3.9
-%define rel     7
-%define release %mkrel %{rel}
+%define version 1.3.3.10
+%define release %mkrel -c svn10439 1
 
 %define	major	0
 %define	libname	%mklibname %name %major
@@ -13,7 +12,6 @@ Version: 	%version
 Release:	%release
 Source0:	http://downloads.sourceforge.net/scribus/scribus-%{version}.tar.bz2
 Source1:	vnd.scribus.desktop
-Patch0:		scribus-1.3.3.9-cmake-libpath.patch
 Patch1:		scribus-1.3.3.9-desktop-file.patch
 URL: 		http://www.scribus.net/
 License:	GPL
@@ -104,11 +102,13 @@ package installed.
 
 %prep
 %setup -q
-%patch0 -p0
 %patch1 -p0
 
 %build
-%cmake
+%cmake \
+	%if "%{_lib}" != "lib" \
+		-DWANT_LIB64 \
+	%endif
 
 %make -j1
 
