@@ -28,7 +28,7 @@ BuildRequires:	tiff-devel
 BuildRequires:	python-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	cmake
-BuildRequires:	desktop-file-utils
+BuildRequires:	desktop-file-utils imagemagick
 
 Requires:	tkinter
 Requires:	ghostscript-common
@@ -55,10 +55,12 @@ separations.
 %post
 %update_menus
 %update_mime_database
+%update_icon_cache hicolor
 
 %postun
 %clean_menus
 %clean_mime_database
+%clean_icon_cache hicolor
 
 %files
 %defattr(-,root,root)
@@ -71,6 +73,10 @@ separations.
 %{_libdir}/scribus
 %{_datadir}/mime/packages/*.xml
 %{_datadir}/scribus
+%_iconsdir/hicolor/*/apps/%{name}.png
+%_iconsdir/%{name}.png
+%_miconsdir/%{name}.png
+%_liconsdir/%{name}.png
 
 #--------------------------------------------------------------------
 
@@ -122,6 +128,17 @@ desktop-file-install --vendor='' \
 	--remove-category='WordProcessor' \
 	--add-category='Publishing' \
 	scribus.desktop
+
+# install icons for hicolor and old WM
+mkdir -p %buildroot%_iconsdir/hicolor/{16x16,32x32,48x48}/apps
+convert -resize 16x16 scribus/icons/scribusicon.png %buildroot%_iconsdir/hicolor/16x16/apps/%{name}.png
+convert -resize 32x32 scribus/icons/scribusicon.png %buildroot%_iconsdir/hicolor/32x32/apps/%{name}.png
+convert -resize 48x48 scribus/icons/scribusicon.png %buildroot%_iconsdir/hicolor/48x48/apps/%{name}.png
+
+mkdir -p %buildroot{%_iconsdir,%_liconsdir,%_miconsdir}
+convert -resize 16x16 scribus/icons/scribusicon.png %buildroot%_miconsdir/%{name}.png
+convert -resize 32x32 scribus/icons/scribusicon.png %buildroot%_iconsdir/%{name}.png
+convert -resize 48x48 scribus/icons/scribusicon.png %buildroot%_liconsdir/%{name}.png
 
 # fwang: install mimelnk for kde
 install -d %buildroot%{_datadir}/mimelnk/application
