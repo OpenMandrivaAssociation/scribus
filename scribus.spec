@@ -107,8 +107,8 @@ package installed.
 
 %build
 %cmake \
-	%if "%{_lib}" != "lib" \
-		-DWANT_LIB64 \
+	%if "%{_lib}" != "lib"
+		-DWANT_LIB64
 	%endif
 
 %make -j1
