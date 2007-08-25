@@ -1,6 +1,7 @@
 %define name    scribus
 %define version 1.3.3.10
-%define release %mkrel -c svn10439 1
+%define svnrel	10439
+%define release %mkrel -c %{svnrel} 1
 
 %define	major	0
 %define	libname	%mklibname %name %major
@@ -10,7 +11,7 @@ Summary: 	Scribus - Open Source Page Layout
 Name: 		%name
 Version: 	%version
 Release:	%release
-Source0:	http://downloads.sourceforge.net/scribus/scribus-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/scribus/%{name}-svn%{svnrel}.tar.bz2
 Source1:	vnd.scribus.desktop
 Patch1:		scribus-1.3.3.9-desktop-file.patch
 URL: 		http://www.scribus.net/
@@ -101,7 +102,7 @@ package installed.
 #--------------------------------------------------------------------
 
 %prep
-%setup -q
+%setup -q -n %{name}
 %patch1 -p0
 
 %build
