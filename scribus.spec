@@ -1,7 +1,7 @@
 %define name    scribus
 %define version 1.3.3.10
 %define svnrel	10439
-%define release %mkrel -c %{svnrel} 1
+%define release %mkrel -c %{svnrel} 2
 
 %define	major	0
 %define	libname	%mklibname %name %major
@@ -125,9 +125,11 @@ cd -
 install -d %buildroot%{_datadir}/applications
 desktop-file-install --vendor='' \
 	--dir %buildroot%{_datadir}/applications/ \
+	--remove-key='Encoding' \
 	--remove-category='Application' \
 	--remove-category='WordProcessor' \
 	--add-category='Publishing' \
+	--add-category='X-MandrivaLinux-CrossDesktop'\
 	scribus.desktop
 
 # install icons for hicolor and old WM
