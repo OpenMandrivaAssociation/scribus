@@ -17,6 +17,7 @@ Patch1:		scribus-1.3.3.9-desktop-file.patch
 URL: 		http://www.scribus.net/
 License:	GPL
 Group:  	Office
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	autoconf
 BuildRequires:	cups-devel
 BuildRequires:	lcms-devel
