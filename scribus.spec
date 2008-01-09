@@ -1,7 +1,6 @@
 %define name    scribus
 %define version 1.3.3.10
-%define svnrel	10439
-%define release %mkrel -c %{svnrel} 2
+%define release %mkrel 1
 
 %define	major	0
 %define	libname	%mklibname %name %major
@@ -11,7 +10,7 @@ Summary: 	Scribus - Open Source Page Layout
 Name: 		%name
 Version: 	%version
 Release:	%release
-Source0:	http://downloads.sourceforge.net/scribus/%{name}-svn%{svnrel}.tar.bz2
+Source0:	http://downloads.sourceforge.net/scribus/%{name}-%{version}.tar.bz2
 Source1:	vnd.scribus.desktop
 Patch1:		scribus-1.3.3.9-desktop-file.patch
 URL: 		http://www.scribus.net/
@@ -63,7 +62,6 @@ separations.
 
 %files
 %defattr(-,root,root)
-%doc %{_docdir}/%{name}
 %{_bindir}/*
 %{_datadir}/applications/*.desktop
 %{_datadir}/mimelnk/application/*.desktop
@@ -76,6 +74,24 @@ separations.
 %_iconsdir/%{name}.png
 %_miconsdir/%{name}.png
 %_liconsdir/%{name}.png
+%dir %{_datadir}/doc/scribus-%version
+%doc %{_datadir}/doc/scribus-%version/AUTHORS
+%doc %{_datadir}/doc/scribus-%version/BUILDING
+%doc %{_datadir}/doc/scribus-%version/COPYING
+%doc %{_datadir}/doc/scribus-%version/ChangeLog
+%doc %{_datadir}/doc/scribus-%version/ChangeLogSVN
+%doc %{_datadir}/doc/scribus-%version/INSTALL
+%doc %{_datadir}/doc/scribus-%version/NEWS
+%doc %{_datadir}/doc/scribus-%version/PACKAGING
+%doc %{_datadir}/doc/scribus-%version/README
+%doc %{_datadir}/doc/scribus-%version/README.MacOSX
+%doc %{_datadir}/doc/scribus-%version/TODO
+%lang(cs) %{_datadir}/doc/scribus-%version/cs
+%lang(de) %{_datadir}/doc/scribus-%version/de
+%lang(en) %{_datadir}/doc/scribus-%version/en
+%lang(fr) %{_datadir}/doc/scribus-%version/fr
+%lang(pl) %{_datadir}/doc/scribus-%version/pl
+%{_datadir}/pixmaps/scribusicon.png
 
 #--------------------------------------------------------------------
 
@@ -102,15 +118,11 @@ package installed.
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{version}
 %patch1 -p0
 
 %build
-%cmake \
-	%if "%{_lib}" != "lib"
-		-DWANT_LIB64=yes
-	%endif
-
+%configure2_5x
 %make -j1
 
 %install
@@ -118,9 +130,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # Laurent don't use %%makeinstall it doesn't work
 # lib and pugins in not install in good directory.
-cd build
 %makeinstall_std
-cd -
 
 install -d %buildroot%{_datadir}/applications
 desktop-file-install --vendor='' \
