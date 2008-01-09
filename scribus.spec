@@ -14,7 +14,7 @@ Source0:	http://downloads.sourceforge.net/scribus/%{name}-%{version}.tar.bz2
 Source1:	vnd.scribus.desktop
 Patch1:		scribus-1.3.3.9-desktop-file.patch
 URL: 		http://www.scribus.net/
-License:	GPL
+License:	GPLv2+
 Group:  	Office
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	autoconf
@@ -25,7 +25,6 @@ BuildRequires:	qt3-devel
 BuildRequires:	tiff-devel
 BuildRequires:	python-devel
 BuildRequires:	libtiff-devel
-BuildRequires:	cmake
 BuildRequires:	desktop-file-utils imagemagick
 
 Requires:	tkinter
@@ -140,6 +139,7 @@ desktop-file-install --vendor='' \
 	--remove-category='WordProcessor' \
 	--add-category='Publishing' \
 	--add-category='X-MandrivaLinux-CrossDesktop'\
+	--add-category='X-MandrivaLinux-Office-Publishing' \
 	scribus.desktop
 
 # install icons for hicolor and old WM
