@@ -25,7 +25,7 @@ BuildRequires:	qt3-devel
 BuildRequires:	tiff-devel
 BuildRequires:	python-devel
 BuildRequires:	libtiff-devel
-BuildRequires:	desktop-file-utils imagemagick
+BuildRequires:	desktop-file-utils ImageMagick
 
 Requires:	tkinter
 Requires:	ghostscript-common
