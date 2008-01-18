@@ -121,7 +121,9 @@ package installed.
 %patch1 -p0
 
 %build
-%configure2_5x
+%configure2_5x --with-qt-dir=%qt3dir \
+	--with-qt-includes=%qt3include \
+	--with-qt-libraries=%qt3lib
 %make -j1
 
 %install
