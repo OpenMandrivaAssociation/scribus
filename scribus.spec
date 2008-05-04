@@ -1,6 +1,6 @@
 %define name    scribus
 %define version 1.3.3.11
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define	major	0
 %define	libname	%mklibname %name %major
@@ -123,7 +123,8 @@ package installed.
 %build
 %configure2_5x --with-qt-dir=%qt3dir \
 	--with-qt-includes=%qt3include \
-	--with-qt-libraries=%qt3lib
+	--with-qt-libraries=%qt3lib \
+	--enable-libsuffix=64
 %make -j1
 
 %install
