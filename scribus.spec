@@ -124,7 +124,10 @@ package installed.
 %configure2_5x --with-qt-dir=%qt3dir \
 	--with-qt-includes=%qt3include \
 	--with-qt-libraries=%qt3lib \
+%if "x%{_lib}x" == "xlib64x"
 	--enable-libsuffix=64
+%endif
+
 %make -j1
 
 %install
