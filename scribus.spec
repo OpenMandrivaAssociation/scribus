@@ -49,15 +49,19 @@ publishing features, such as CMYK colors, easy PDF creation,
 Encapsulated Postscript import and export, and creation of color
 separations.
 
+%if %mdkversion < 200900
 %post
 %update_menus
 %update_mime_database
 %update_icon_cache hicolor
+%endif
 
+%if %mdkversion < 200900
 %postun
 %clean_menus
 %clean_mime_database
 %clean_icon_cache hicolor
+%endif
 
 %files
 %defattr(-,root,root)
