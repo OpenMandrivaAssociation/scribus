@@ -1,6 +1,6 @@
 %define name    scribus
-%define version 1.3.3.11
-%define release %mkrel 3
+%define version 1.3.3.12
+%define release %mkrel 1
 
 %define	major	0
 %define	libname	%mklibname %name %major
@@ -122,7 +122,7 @@ package installed.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch1 -p0
+#%patch1 -p0
 
 %build
 %configure2_5x --with-qt-dir=%qt3dir \
