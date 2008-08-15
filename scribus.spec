@@ -12,7 +12,7 @@ Version: 	%version
 Release:	%release
 Source0:	http://downloads.sourceforge.net/scribus/%{name}-%{version}.tar.bz2
 Source1:	vnd.scribus.desktop
-Patch1:		scribus-1.3.3.9-desktop-file.patch
+Source2:	%name.desktop
 URL: 		http://www.scribus.net/
 License:	GPLv2+
 Group:  	Office
@@ -122,9 +122,10 @@ package installed.
 
 %prep
 %setup -q -n %{name}-%{version}
-#%patch1 -p0
 
 %build
+%define _disable_ld_as_needed 1
+%define _disable_ld_no_undefined 1
 %configure2_5x --with-qt-dir=%qt3dir \
 	--with-qt-includes=%qt3include \
 	--with-qt-libraries=%qt3lib \
@@ -150,7 +151,7 @@ desktop-file-install --vendor='' \
 	--add-category='Publishing' \
 	--add-category='X-MandrivaLinux-CrossDesktop'\
 	--add-category='X-MandrivaLinux-Office-Publishing' \
-	scribus.desktop
+	%SOURCE2
 
 # install icons for hicolor and old WM
 mkdir -p %buildroot%_iconsdir/hicolor/{16x16,32x32,48x48}/apps
@@ -162,10 +163,6 @@ mkdir -p %buildroot{%_iconsdir,%_liconsdir,%_miconsdir}
 convert -resize 16x16 scribus/icons/scribusicon.png %buildroot%_miconsdir/%{name}.png
 convert -resize 32x32 scribus/icons/scribusicon.png %buildroot%_iconsdir/%{name}.png
 convert -resize 48x48 scribus/icons/scribusicon.png %buildroot%_liconsdir/%{name}.png
-
-# fwang: install mimelnk for kde
-install -d %buildroot%{_datadir}/mimelnk/application
-install %SOURCE1 %buildroot%{_datadir}/mimelnk/application/
 
 # fwang: cp include files now
 # or, not needed??
