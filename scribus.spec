@@ -67,7 +67,6 @@ separations.
 %defattr(-,root,root)
 %{_bindir}/*
 %{_datadir}/applications/*.desktop
-%{_datadir}/mimelnk/application/*.desktop
 %{_mandir}/man1/*
 %lang(pl) %{_mandir}/pl/man1/*
 %{_libdir}/scribus
