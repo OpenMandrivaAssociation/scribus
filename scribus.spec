@@ -145,8 +145,7 @@ install -d %buildroot%{_datadir}/applications
 desktop-file-install --vendor='' \
 	--dir %buildroot%{_datadir}/applications/ \
 	--remove-key='Encoding' \
-	--remove-category='Application' \
-	--remove-category='WordProcessor' \
+	--remove-category='Graphics' \
 	--add-category='Office' \
 	--add-category='Publishing' \
 	--add-category='X-MandrivaLinux-CrossDesktop'\
