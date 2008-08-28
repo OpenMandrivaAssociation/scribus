@@ -1,6 +1,6 @@
 %define name    scribus
 %define version 1.3.3.12
-%define release %mkrel 2
+%define release %mkrel 3
 
 %define	major	0
 %define	libname	%mklibname %name %major
@@ -147,6 +147,7 @@ desktop-file-install --vendor='' \
 	--remove-key='Encoding' \
 	--remove-category='Application' \
 	--remove-category='WordProcessor' \
+	--add-category='Office' \
 	--add-category='Publishing' \
 	--add-category='X-MandrivaLinux-CrossDesktop'\
 	--add-category='X-MandrivaLinux-Office-Publishing' \
