@@ -11,7 +11,6 @@ Name: 		%name
 Version: 	%version
 Release:	%release
 Source0:	http://downloads.sourceforge.net/scribus/%{name}-%{version}.tar.bz2
-Source1:	vnd.scribus.desktop
 Source2:	%name.desktop
 URL: 		http://www.scribus.net/
 License:	GPLv2+
@@ -20,13 +19,13 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	autoconf
 BuildRequires:	cups-devel
 BuildRequires:	lcms-devel
-BuildRequires:	libart_lgpl-devel
+BuildRequires:	cairo-devel
 BuildRequires:	qt3-devel
 BuildRequires:	tiff-devel
 BuildRequires:	python-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	desktop-file-utils ImageMagick
-
+BuildRequires:	cmake
 Requires:	tkinter
 Requires:	ghostscript-common
 
@@ -76,24 +75,10 @@ separations.
 %_iconsdir/%{name}.png
 %_miconsdir/%{name}.png
 %_liconsdir/%{name}.png
-%dir %{_datadir}/doc/scribus-%version
-%doc %{_datadir}/doc/scribus-%version/AUTHORS
-%doc %{_datadir}/doc/scribus-%version/BUILDING
-%doc %{_datadir}/doc/scribus-%version/COPYING
-%doc %{_datadir}/doc/scribus-%version/ChangeLog
-%doc %{_datadir}/doc/scribus-%version/ChangeLogSVN
-%doc %{_datadir}/doc/scribus-%version/INSTALL
-%doc %{_datadir}/doc/scribus-%version/NEWS
-%doc %{_datadir}/doc/scribus-%version/PACKAGING
-%doc %{_datadir}/doc/scribus-%version/README
-%doc %{_datadir}/doc/scribus-%version/README.MacOSX
-%doc %{_datadir}/doc/scribus-%version/TODO
-%lang(cs) %{_datadir}/doc/scribus-%version/cs
-%lang(de) %{_datadir}/doc/scribus-%version/de
-%lang(en) %{_datadir}/doc/scribus-%version/en
-%lang(fr) %{_datadir}/doc/scribus-%version/fr
-%lang(pl) %{_datadir}/doc/scribus-%version/pl
-%{_datadir}/pixmaps/scribusicon.png
+%doc %_datadir/doc/%name
+%if %mdkversion < 200900
+%_datadir/mimelnk/application/vnd.scribus.desktop
+%endif
 
 #--------------------------------------------------------------------
 
@@ -123,23 +108,14 @@ package installed.
 %setup -q -n %{name}-%{version}
 
 %build
-%define _disable_ld_as_needed 1
 %define _disable_ld_no_undefined 1
-%configure2_5x --with-qt-dir=%qt3dir \
-	--with-qt-includes=%qt3include \
-	--with-qt-libraries=%qt3lib \
-%if "x%{_lib}x" == "xlib64x"
-	--enable-libsuffix=64
-%endif
-
-%make -j1
+%cmake -DWANT_CAIRO=1
+%make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-# Laurent don't use %%makeinstall it doesn't work
-# lib and pugins in not install in good directory.
-%makeinstall_std
+%makeinstall_std -C build
 
 install -d %buildroot%{_datadir}/applications
 desktop-file-install --vendor='' \
@@ -167,6 +143,11 @@ convert -resize 48x48 scribus/icons/scribusicon.png %buildroot%_liconsdir/%{name
 # or, not needed??
 install -d %buildroot%{_includedir}/%{name}
 install %{name}/*.h %buildroot%{_includedir}/%{name}/
+
+# we do not need kde stuffs for 2009
+%if %mdkversion >= 200900
+rm -f %buildroot%_datadir/mimelnk/application/vnd.scribus.desktop
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
