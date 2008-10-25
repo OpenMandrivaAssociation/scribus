@@ -70,7 +70,7 @@ separations.
 %{_libdir}/scribus
 %{_datadir}/mime/packages/*.xml
 %{_datadir}/scribus
-%_iconsdir/hicolor/*/apps/%{name}*.png
+%_iconsdir/hicolor/*/apps/%{name}.png
 %doc %{_datadir}/doc/%{name}*
 
 #--------------------------------------------------------------------
@@ -122,9 +122,9 @@ desktop-file-install --vendor='' \
 
 # install icons for hicolor and old WM
 mkdir -p %buildroot%_iconsdir/hicolor/{16x16,32x32,48x48}/apps
-convert -resize 16x16 scribus/icons/scribusicon.png %buildroot%_iconsdir/hicolor/16x16/apps/%{name}icon.png
-convert -resize 32x32 scribus/icons/scribusicon.png %buildroot%_iconsdir/hicolor/32x32/apps/%{name}icon.png
-convert -resize 48x48 scribus/icons/scribusicon.png %buildroot%_iconsdir/hicolor/48x48/apps/%{name}icon.png
+convert -resize 16x16 scribus/icons/scribus.png %buildroot%_iconsdir/hicolor/16x16/apps/%{name}.png
+convert -resize 32x32 scribus/icons/scribus.png %buildroot%_iconsdir/hicolor/32x32/apps/%{name}.png
+convert -resize 48x48 scribus/icons/scribus.png %buildroot%_iconsdir/hicolor/48x48/apps/%{name}.png
 
 # we do not need kde stuffs for 2009
 rm -f %buildroot%_datadir/mimelnk/application/vnd.scribus.desktop
