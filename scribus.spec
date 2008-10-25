@@ -1,6 +1,7 @@
 %define name    scribus
-%define version 1.3.3.12
-%define release %mkrel 5
+%define version 1.3.5
+%define svnrel  12760
+%define release %mkrel -c svn%svnrel 1
 
 %define	major	0
 %define	libname	%mklibname %name %major
@@ -10,27 +11,24 @@ Summary: 	Scribus - Open Source Page Layout
 Name: 		%name
 Version: 	%version
 Release:	%release
-Source0:	http://downloads.sourceforge.net/scribus/%{name}-%{version}.tar.bz2
-Source2:	%name.desktop
+Source0:	http://downloads.sourceforge.net/scribus/%{name}-r%{svnrel}.tar.bz2
 URL: 		http://www.scribus.net/
 License:	GPLv2+
 Group:  	Office
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:	autoconf
+BuildRequires:	aspell-devel
 BuildRequires:	cups-devel
 BuildRequires:	lcms-devel
+BuildRequires:	boost-devel
 BuildRequires:	cairo-devel
-BuildRequires:	qt3-devel
+BuildRequires:	qt4-devel >= 3:4.4.0
 BuildRequires:	tiff-devel
 BuildRequires:	python-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	desktop-file-utils ImageMagick
-BuildRequires:	cmake
+BuildRequires:	cmake >= 2.6.0
 Requires:	tkinter
 Requires:	ghostscript-common
-
-Obsoletes:	kde3-scribus 
-Provides:	kde3-scribus
 
 Obsoletes:    scribus-i18n-en
 Obsoletes:    scribus-i18n-de
@@ -68,17 +66,12 @@ separations.
 %{_datadir}/applications/*.desktop
 %{_mandir}/man1/*
 %lang(pl) %{_mandir}/pl/man1/*
+%lang(de) %{_mandir}/de/man1/*
 %{_libdir}/scribus
 %{_datadir}/mime/packages/*.xml
 %{_datadir}/scribus
-%_iconsdir/hicolor/*/apps/%{name}.png
-%_iconsdir/%{name}.png
-%_miconsdir/%{name}.png
-%_liconsdir/%{name}.png
-%doc %_datadir/doc/%name
-%if %mdkversion < 200900
-%_datadir/mimelnk/application/vnd.scribus.desktop
-%endif
+%_iconsdir/hicolor/*/apps/%{name}*.png
+%doc %{_datadir}/doc/%{name}*
 
 #--------------------------------------------------------------------
 
@@ -105,12 +98,11 @@ package installed.
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -qn Scribus
 
 %build
-%define _disable_ld_no_undefined 1
-%cmake -DWANT_CAIRO=1
-%make
+%cmake_qt4 -DCMAKE_MODULE_LINKER_FLAGS='-module %{?!_disable_ld_as_needed: -Wl,--as-needed}'
+make
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -121,33 +113,21 @@ install -d %buildroot%{_datadir}/applications
 desktop-file-install --vendor='' \
 	--dir %buildroot%{_datadir}/applications/ \
 	--remove-key='Encoding' \
+	--remove-category='Application' \
 	--remove-category='Graphics' \
 	--add-category='Office' \
 	--add-category='Publishing' \
 	--add-category='X-MandrivaLinux-CrossDesktop'\
-	--add-category='X-MandrivaLinux-Office-Publishing' \
-	%SOURCE2
+	%name.desktop
 
 # install icons for hicolor and old WM
 mkdir -p %buildroot%_iconsdir/hicolor/{16x16,32x32,48x48}/apps
-convert -resize 16x16 scribus/icons/scribusicon.png %buildroot%_iconsdir/hicolor/16x16/apps/%{name}.png
-convert -resize 32x32 scribus/icons/scribusicon.png %buildroot%_iconsdir/hicolor/32x32/apps/%{name}.png
-convert -resize 48x48 scribus/icons/scribusicon.png %buildroot%_iconsdir/hicolor/48x48/apps/%{name}.png
-
-mkdir -p %buildroot{%_iconsdir,%_liconsdir,%_miconsdir}
-convert -resize 16x16 scribus/icons/scribusicon.png %buildroot%_miconsdir/%{name}.png
-convert -resize 32x32 scribus/icons/scribusicon.png %buildroot%_iconsdir/%{name}.png
-convert -resize 48x48 scribus/icons/scribusicon.png %buildroot%_liconsdir/%{name}.png
-
-# fwang: cp include files now
-# or, not needed??
-install -d %buildroot%{_includedir}/%{name}
-install %{name}/*.h %buildroot%{_includedir}/%{name}/
+convert -resize 16x16 scribus/icons/scribusicon.png %buildroot%_iconsdir/hicolor/16x16/apps/%{name}icon.png
+convert -resize 32x32 scribus/icons/scribusicon.png %buildroot%_iconsdir/hicolor/32x32/apps/%{name}icon.png
+convert -resize 48x48 scribus/icons/scribusicon.png %buildroot%_iconsdir/hicolor/48x48/apps/%{name}icon.png
 
 # we do not need kde stuffs for 2009
-%if %mdkversion >= 200900
 rm -f %buildroot%_datadir/mimelnk/application/vnd.scribus.desktop
-%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
