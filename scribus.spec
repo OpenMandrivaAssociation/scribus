@@ -25,7 +25,7 @@ BuildRequires:	qt4-devel >= 3:4.4.0
 BuildRequires:	tiff-devel
 BuildRequires:	python-devel
 BuildRequires:	libtiff-devel
-BuildRequires:	desktop-file-utils ImageMagick
+BuildRequires:	desktop-file-utils imagemagick
 BuildRequires:	cmake >= 2.6.0
 Requires:	tkinter
 Requires:	ghostscript-common
