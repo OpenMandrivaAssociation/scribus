@@ -12,6 +12,7 @@ Name: 		%name
 Version: 	%version
 Release:	%release
 Source0:	http://downloads.sourceforge.net/scribus/%{name}-r%{svnrel}.tar.bz2
+Patch0:		scribus-1.3.5-fix-str-fmt.patch
 URL: 		http://www.scribus.net/
 License:	GPLv2+
 Group:  	Office
@@ -99,6 +100,7 @@ package installed.
 
 %prep
 %setup -qn Scribus
+%patch0 -p0
 
 %build
 %cmake_qt4 -DCMAKE_MODULE_LINKER_FLAGS='-module %{?!_disable_ld_as_needed: -Wl,--as-needed}'
