@@ -1,7 +1,7 @@
 %define name    scribus
 %define version 1.3.5
 %define svnrel  13066
-%define release %mkrel -c svn%svnrel 1
+%define release %mkrel -c svn%svnrel 2
 
 %define	major	0
 %define	libname	%mklibname %name %major
@@ -100,11 +100,12 @@ package installed.
 
 %prep
 %setup -qn Scribus
-%patch0 -p0
+#patch0
 
 %build
-%cmake_qt4 -DCMAKE_MODULE_LINKER_FLAGS='-module %{?!_disable_ld_as_needed: -Wl,--as-needed}'
-make
+%define Werror_cflags %nil
+%cmake_qt4
+%make
 
 %install
 rm -rf $RPM_BUILD_ROOT
