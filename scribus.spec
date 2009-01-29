@@ -1,7 +1,7 @@
 %define name    scribus
 %define version 1.3.5
-%define svnrel  13066
-%define release %mkrel -c svn%svnrel 2
+%define svnrel  13118
+%define release %mkrel -c svn%svnrel 1
 
 %define	major	0
 %define	libname	%mklibname %name %major
