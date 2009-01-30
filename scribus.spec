@@ -1,6 +1,6 @@
 %define name    scribus
 %define version 1.3.5
-%define svnrel  13118
+%define svnrel  13129
 %define release %mkrel -c svn%svnrel 1
 
 %define	major	0
@@ -12,7 +12,6 @@ Name: 		%name
 Version: 	%version
 Release:	%release
 Source0:	http://downloads.sourceforge.net/scribus/%{name}-r%{svnrel}.tar.bz2
-Patch0:		scribus-1.3.5-fix-str-fmt.patch
 URL: 		http://www.scribus.net/
 License:	GPLv2+
 Group:  	Office
@@ -100,10 +99,8 @@ package installed.
 
 %prep
 %setup -qn Scribus
-#patch0
 
 %build
-%define Werror_cflags %nil
 %cmake_qt4
 %make
 
