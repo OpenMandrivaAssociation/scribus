@@ -1,6 +1,6 @@
 %define name    scribus
 %define version 1.3.5
-%define svnrel  13129
+%define svnrel  13262
 %define release %mkrel -c svn%svnrel 1
 
 %define	major	0
@@ -99,6 +99,9 @@ package installed.
 
 %prep
 %setup -qn Scribus
+# Don't add (Development) to name in program menu, it makes no sense for
+# users
+sed -i -e "s/ (Development)//" scribus.desktop
 
 %build
 %cmake_qt4
