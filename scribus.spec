@@ -1,7 +1,6 @@
 %define name    scribus
-%define version 1.3.5
-%define svnrel  13658
-%define release %mkrel -c svn%svnrel 2
+%define version 1.3.5.1
+%define release %mkrel 1
 
 %define	major	0
 %define	libname	%mklibname %name %major
@@ -11,7 +10,7 @@ Summary: 	Scribus - Open Source Page Layout
 Name: 		%name
 Version: 	%version
 Release:	%release
-Source0:	http://downloads.sourceforge.net/scribus/%{name}-r%{svnrel}.tar.bz2
+Source0:	http://downloads.sourceforge.net/project/scribus/scribus-devel/%version/%name-%version.tar.bz2
 URL: 		http://www.scribus.net/
 License:	GPLv2+
 Group:  	Office
@@ -98,7 +97,7 @@ package installed.
 #--------------------------------------------------------------------
 
 %prep
-%setup -qn Scribus
+%setup -q
 # Don't add (Development) to name in program menu, it makes no sense for
 # users
 sed -i -e "s/ (Development)//" scribus.desktop
