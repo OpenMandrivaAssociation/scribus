@@ -1,6 +1,6 @@
 %define name    scribus
 %define version 1.3.8
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define	major	0
 %define	libname	%mklibname %name %major
