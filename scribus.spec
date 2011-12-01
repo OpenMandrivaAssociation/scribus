@@ -107,7 +107,7 @@ sed -i -e "s/ (Development)//" scribus.desktop
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %makeinstall_std -C build
 
@@ -130,4 +130,4 @@ convert -resize 48x48 resources/icons/scribus.png %buildroot%_iconsdir/hicolor/4
 rm -f %buildroot%_datadir/mimelnk/application/vnd.scribus.desktop
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
