@@ -1,6 +1,6 @@
 %define name    scribus
 %define version 1.4.0
-%define release %mkrel -c rc5 2
+%define release 1
 
 %define	major	0
 %define	libname	%mklibname %name %major
@@ -10,7 +10,7 @@ Summary: 	Scribus - Open Source Page Layout
 Name: 		%name
 Version: 	%version
 Release:	%release
-Source0:	http://downloads.sourceforge.net/scribus/%name-%version.rc5.tar.xz
+Source0:	http://downloads.sourceforge.net/scribus/%name-%version.tar.xz
 URL: 		http://www.scribus.net/
 License:	GPLv2+
 Group:  	Office
@@ -29,10 +29,10 @@ BuildRequires:	cmake >= 2.6.0
 Requires:	tkinter
 Requires:	ghostscript-common
 
-Obsoletes:    scribus-i18n-en
-Obsoletes:    scribus-i18n-de
-Obsoletes:    scribus-i18n-fr
-Obsoletes:	%libname
+#Obsoletes:    scribus-i18n-en
+#Obsoletes:    scribus-i18n-de
+#Obsoletes:    scribus-i18n-fr
+#Obsoletes:	%libname
 
 %description
 Scribus is a desktop open source page layout program with the aim of
@@ -44,20 +44,6 @@ easy-to-understand tools, Scribus offers support for professional
 publishing features, such as CMYK colors, easy PDF creation,
 Encapsulated Postscript import and export, and creation of color
 separations.
-
-%if %mdkversion < 200900
-%post
-%update_menus
-%update_mime_database
-%update_icon_cache hicolor
-%endif
-
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%clean_mime_database
-%clean_icon_cache hicolor
-%endif
 
 %files
 %defattr(-,root,root)
@@ -97,7 +83,7 @@ package installed.
 #--------------------------------------------------------------------
 
 %prep
-%setup -qn %name-%version.rc5
+%setup -qn %name-%version
 # Don't add (Development) to name in program menu, it makes no sense for
 # users
 sed -i -e "s/ (Development)//" scribus.desktop
