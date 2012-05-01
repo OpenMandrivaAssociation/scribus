@@ -1,20 +1,16 @@
-%define name    scribus
-%define version 1.4.0
-%define release 1
-
 %define	major	0
 %define	libname	%mklibname %name %major
 %define develname %{name}-devel
 
 Summary: 	Scribus - Open Source Page Layout
-Name: 		%name
-Version: 	%version
-Release:	%release
+Name: 		scribus
+Version: 	1.4.1
+Release:	1
 Source0:	http://downloads.sourceforge.net/scribus/%name-%version.tar.xz
+Source10:	scribus.rpmlintrc
 URL: 		http://www.scribus.net/
 License:	GPLv2+
 Group:  	Office
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	aspell-devel
 BuildRequires:	cups-devel
 BuildRequires:	lcms-devel
