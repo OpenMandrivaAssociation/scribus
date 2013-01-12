@@ -1,3 +1,3 @@
 sources:
-  "scribus-1.4.1.tar.xz:"	50601946c7ffe55090900784b51c98a156da8f13
-  "scribus.rpmlintrc:"	a075aaf335e0f317a1f897b96dde445e6d31fc41
+  scribus-1.4.1.tar.xz: 50601946c7ffe55090900784b51c98a156da8f13
+  scribus.rpmlintrc: a075aaf335e0f317a1f897b96dde445e6d31fc41
