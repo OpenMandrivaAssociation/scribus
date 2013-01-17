@@ -4,7 +4,7 @@
 
 Summary: 	Scribus - Open Source Page Layout
 Name: 		scribus
-Version: 	1.4.1
+Version: 	1.4.2
 Release:	1
 Source0:	http://ignum.dl.sourceforge.net/project/%name/%name/%version/%name-%version.tar.xz
 Source10:	scribus.rpmlintrc
