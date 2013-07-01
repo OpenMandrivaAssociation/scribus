@@ -2,7 +2,7 @@
 %define	libname	%mklibname %name %major
 %define develname %{name}-devel
 
-Summary: 	Scribus - Open Source Page Layout
+Summary: 	- Open Source Page Layout
 Name: 		scribus
 Version: 	1.4.2
 Release:	1
