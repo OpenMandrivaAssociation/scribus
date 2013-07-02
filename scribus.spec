@@ -2,10 +2,10 @@
 %define	libname	%mklibname %name %major
 %define develname %{name}-devel
 
-Summary: 	- Open Source Page Layout
+Summary: 	Open Source Page Layout
 Name: 		scribus
 Version: 	1.4.2
-Release:	1
+Release:	2
 Source0:	http://ignum.dl.sourceforge.net/project/%name/%name/%version/%name-%version.tar.xz
 Source10:	scribus.rpmlintrc
 URL: 		http://www.scribus.net/
@@ -42,7 +42,6 @@ Encapsulated Postscript import and export, and creation of color
 separations.
 
 %files
-%defattr(-,root,root)
 %{_bindir}/*
 %{_datadir}/applications/*.desktop
 %{_mandir}/man1/*
@@ -72,7 +71,6 @@ you should install %{develname}-devel.  You'll also need to have the %name
 package installed.
 
 %files -n %{develname}
-%defattr(-,root,root)
 %doc AUTHORS COPYING
 %_includedir/%name/*
 
@@ -89,7 +87,6 @@ sed -i -e "s/ (Development)//" scribus.desktop
 %make
 
 %install
-rm -rf %{buildroot}
 
 %makeinstall_std -C build
 
@@ -112,4 +109,3 @@ convert -resize 48x48 resources/icons/scribus.png %buildroot%_iconsdir/hicolor/4
 rm -f %buildroot%_datadir/mimelnk/application/vnd.scribus.desktop
 
 %clean
-rm -rf %{buildroot}
