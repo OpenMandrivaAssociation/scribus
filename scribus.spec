@@ -7,6 +7,7 @@ Group:		Office
 Url:		http://www.scribus.net/
 Source0:	http://ignum.dl.sourceforge.net/project/%name/%name/%version/%name-%version.tar.xz
 Source10:	scribus.rpmlintrc
+Patch0:		scribus-to-double.patch
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
 BuildRequires:	imagemagick
@@ -69,6 +70,7 @@ Development headers for programs that will use Scribus.
 
 %prep
 %setup -q -n %{name}-%{version}/%{name}-%{version}
+%apply_patches
 # Don't add (Development) to name in program menu, it makes no sense for
 # users
 sed -i -e "s/ (Development)//" scribus.desktop
