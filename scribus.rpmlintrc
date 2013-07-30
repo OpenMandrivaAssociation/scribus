@@ -1,0 +1,1 @@
+addFilter("E: binary-or-shlib-defines-rpath.*")
