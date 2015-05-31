@@ -1,6 +1,6 @@
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
-Version:	1.4.3
+Version:	1.4.4
 Release:	2
 License:	GPLv2+
 Group:		Office
@@ -15,7 +15,7 @@ BuildRequires:	pkgconfig(cairo)
 BuildRequires:	pkgconfig(fontconfig)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(hunspell)
-BuildRequires:	pkgconfig(lcms)
+BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libxml-2.0)
@@ -69,7 +69,7 @@ Development headers for programs that will use Scribus.
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %{name}-%{version}/%{name}-%{version}
+%setup -q
 %apply_patches
 # Don't add (Development) to name in program menu, it makes no sense for
 # users
