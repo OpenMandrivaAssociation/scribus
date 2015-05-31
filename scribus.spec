@@ -75,7 +75,7 @@ Development headers for programs that will use Scribus.
 sed -i -e "s/ (Development)//" scribus.desktop
 
 %build
-%cmake_qt4 -DWANT_HUNSPELL:BOOL=ON
+%cmake_qt5 -DWANT_HUNSPELL:BOOL=ON
 %make
 
 %install
