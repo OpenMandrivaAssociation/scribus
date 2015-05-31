@@ -1,0 +1,10 @@
+--- scribus-1.5.0/scribus/sclayer.cpp.orig	2015-05-31 14:51:42.702382037 +0100
++++ scribus-1.5.0/scribus/sclayer.cpp	2015-05-31 14:51:52.287381424 +0100
+@@ -10,6 +10,7 @@
+ #include <QHash>   //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instanciation of templates
+ #include <QVector> //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instanciation of templates
+ #include <QtAlgorithms>
++#include <QObject>
+ 
+ ScLayer::ScLayer(void)
+ {
