@@ -19,6 +19,8 @@ BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(librevenge-0.0)
+BuildRequires:	pkgconfig(poppler)
 BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	boost-devel
@@ -81,7 +83,7 @@ Development headers for programs that will use Scribus.
 sed -i -e "s/ (Development)//" scribus.desktop
 
 %build
-%cmake_qt5 -DWANT_HUNSPELL:BOOL=ON
+%cmake_qt5 -DWANT_HUNSPELL:BOOL=ON -DWANT_HEADERINSTALL:BOOL=ON
 %make
 
 %install
