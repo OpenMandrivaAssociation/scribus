@@ -1,4 +1,5 @@
 removed_sources:
   scribus-1.4.3.tar.xz: 23d85fcfe0a61ff88cc003639efdbb38d43feb7f
-sources:
   scribus-1.4.4.tar.xz: 7bd3b4a7d6e6262126079847c617b3a25ba8ab06
+sources:
+  scribus-1.4.5.tar.xz: d1ff45d3bf21b87aaac1e508045145135f061027
