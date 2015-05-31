@@ -26,6 +26,11 @@ BuildRequires:	hyphen-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	podofo-devel
 BuildRequires:	qt5-devel
+BuildRequires:  qt5-assistant
+BuildRequires:  qt5-designer
+BuildRequires:  qt5-linguist
+BuildRequires:  qt5-linguist-tools
+
 Requires:	tkinter
 Requires:	ghostscript-common
 
