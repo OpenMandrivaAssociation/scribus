@@ -28,11 +28,20 @@ BuildRequires:	cups-devel
 BuildRequires:	hyphen-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	podofo-devel
-BuildRequires:	qt5-devel
 BuildRequires:  qt5-assistant
 BuildRequires:  qt5-designer
 BuildRequires:  qt5-linguist
 BuildRequires:  qt5-linguist-tools
+BuildRequires:	pkgconfig(Qt5Core)
+BuildRequires:	pkgconfig(Qt5Widgets)
+BuildRequires:	pkgconfig(Qt5Gui)
+BuildRequires:	pkgconfig(Qt5Xml)
+BuildRequires:	pkgconfig(Qt5WebKit)
+BuildRequires:	pkgconfig(Qt5WebKitWidgets)
+BuildRequires:	pkgconfig(Qt5Network)
+BuildRequires:	pkgconfig(Qt5OpenGL)
+BuildRequires:	pkgconfig(Qt5Quick)
+BuildRequires:	pkgconfig(Qt5PrintSupport)
 
 Requires:	tkinter
 Requires:	ghostscript-common
