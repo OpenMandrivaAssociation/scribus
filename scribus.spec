@@ -108,9 +108,9 @@ desktop-file-install --vendor='' \
 
 # install icons for hicolor and old WM
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48}/apps
-convert -resize 16x16 resources/icons/scribus.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
-convert -resize 32x32 resources/icons/scribus.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
-convert -resize 48x48 resources/icons/scribus.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
+convert -resize 16x16 resources/iconsets/1_5_0/scribus.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
+convert -resize 32x32 resources/iconsets/1_5_0/scribus.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
+convert -resize 48x48 resources/iconsets/1_5_0/scribus.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
 
 # we do not need KDE stuff
 rm -f %{buildroot}%{_datadir}/mimelnk/application/vnd.scribus.desktop
