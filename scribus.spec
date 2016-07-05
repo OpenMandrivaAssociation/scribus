@@ -64,6 +64,7 @@ separations.
 %lang(pl) %{_mandir}/pl/man1/*
 %lang(de) %{_mandir}/de/man1/*
 %{_datadir}/applications/*.desktop
+%{_datadir}/appdata/scribus.appdata.xml
 %{_datadir}/mime/packages/*.xml
 %{_iconsdir}/hicolor/*/apps/%{name}.png
 %doc %{_datadir}/doc/%{name}*
