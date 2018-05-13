@@ -7,6 +7,8 @@ Group:		Office
 Url:		http://www.scribus.net/
 Source0:	http://ignum.dl.sourceforge.net/project/%name/%name/%version/%name-%version.tar.xz
 Source10:	scribus.rpmlintrc
+Patch1:		fix-15289.patch
+Patch2:		fix-15289-2.patch
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
 BuildRequires:	imagemagick
@@ -18,8 +20,16 @@ BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(libcdr-0.1)
+BuildRequires:	pkgconfig(libfreehand-0.1)
+BuildRequires:	pkgconfig(libjpeg)
+BuildRequires:	pkgconfig(libmspub-0.1)
+BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
+BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(poppler)
+BuildRequires:	pkgconfig(poppler-cpp)
+BuildRequires:	pkgconfig(poppler-qt5)
 BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	boost-devel
@@ -64,7 +74,7 @@ separations.
 %lang(pl) %{_mandir}/pl/man1/*
 %lang(de) %{_mandir}/de/man1/*
 %{_datadir}/applications/*.desktop
-%{_datadir}/appdata/scribus.appdata.xml
+%{_datadir}/metainfo/scribus.appdata.xml
 %{_datadir}/mime/packages/*.xml
 %{_iconsdir}/hicolor/*/apps/%{name}.png
 %doc %{_datadir}/doc/%{name}*
@@ -79,7 +89,6 @@ Group:		Development/C++
 Development headers for programs that will use Scribus.
 
 %files devel
-%doc AUTHORS COPYING
 %{_includedir}/%{name}
 
 #--------------------------------------------------------------------
