@@ -1,6 +1,6 @@
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
-Version:	1.5.2
+Version:	1.5.4
 Release:	1
 License:	GPLv2+
 Group:		Office
@@ -89,7 +89,7 @@ Development headers for programs that will use Scribus.
 %apply_patches
 # Don't add (Development) to name in program menu, it makes no sense for
 # users
-sed -i -e "s/ (Development)//" scribus.desktop
+sed -i -e "s/ (Development)//" scribus.desktop.in
 
 %build
 %cmake_qt5 -DWANT_HUNSPELL:BOOL=ON -DWANT_HEADERINSTALL:BOOL=ON

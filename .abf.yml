@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   scribus-1.5.2.tar.xz: 87f426863be8057d83e73b58649ccc2a3266c73b
+sources:
+  scribus-1.5.4.tar.xz: 40a8819df4572a3fb752ecda38520a792f69c54f
