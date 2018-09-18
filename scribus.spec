@@ -1,7 +1,7 @@
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
 Version:	1.5.4
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Office
 Url:		http://www.scribus.net/
@@ -30,7 +30,7 @@ BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(poppler)
 BuildRequires:	pkgconfig(poppler-cpp)
 BuildRequires:	pkgconfig(poppler-qt5)
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python2)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	boost-devel
 BuildRequires:	cups-devel
