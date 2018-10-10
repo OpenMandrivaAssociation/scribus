@@ -1,7 +1,7 @@
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
 Version:	1.5.4
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Office
 Url:		http://www.scribus.net/
@@ -97,18 +97,17 @@ Development headers for programs that will use Scribus.
 #--------------------------------------------------------------------
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 # Don't add (Development) to name in program menu, it makes no sense for
 # users
 sed -i -e "s/ (Development)//" scribus.desktop.in
 
 %build
 %cmake_qt5 -DWANT_HUNSPELL:BOOL=ON -DWANT_HEADERINSTALL:BOOL=ON
-%make
+%make_build
 
 %install
-%makeinstall_std -C build
+%make_install
 
 install -d %{buildroot}%{_datadir}/applications
 desktop-file-install --vendor='' \
