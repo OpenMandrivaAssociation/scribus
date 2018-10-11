@@ -1,7 +1,7 @@
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
 Version:	1.5.4
-Release:	4
+Release:	5
 License:	GPLv2+
 Group:		Office
 Url:		http://www.scribus.net/
@@ -9,7 +9,10 @@ Source0:	http://ignum.dl.sourceforge.net/project/%name/%name/%version/%name-%ver
 Source10:	scribus.rpmlintrc
 Patch1:		fix-15289.patch
 Patch2:		fix-15289-2.patch
+Patch3:		scribus-1.5.4-fix-warnings.patch
+Patch4:		scribus-1.5.4-poppler-69.patch
 BuildRequires:	cmake
+BuildRequires:	ninja
 BuildRequires:	desktop-file-utils
 BuildRequires:	imagemagick
 BuildRequires:	pkgconfig(cairo)
@@ -103,11 +106,11 @@ Development headers for programs that will use Scribus.
 sed -i -e "s/ (Development)//" scribus.desktop.in
 
 %build
-%cmake_qt5 -DWANT_HUNSPELL:BOOL=ON -DWANT_HEADERINSTALL:BOOL=ON
-%make_build
+%cmake_qt5 -DWANT_HUNSPELL:BOOL=ON -DWANT_HEADERINSTALL:BOOL=ON -G Ninja
+%ninja_build
 
 %install
-%make_install
+%ninja_install -C build
 
 install -d %{buildroot}%{_datadir}/applications
 desktop-file-install --vendor='' \

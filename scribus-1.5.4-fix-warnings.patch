@@ -1,0 +1,23 @@
+diff -up scribus-1.5.4/scribus/iconmanager.cpp.omv~ scribus-1.5.4/scribus/iconmanager.cpp
+--- scribus-1.5.4/scribus/iconmanager.cpp.omv~	2018-10-11 12:42:28.147175023 +0200
++++ scribus-1.5.4/scribus/iconmanager.cpp	2018-10-11 12:42:45.431300401 +0200
+@@ -179,7 +179,7 @@ void IconManager::readIconConfigFiles()
+ 						)
+ 					{
+ 						m_backupSetBasename=m_activeSetBasename;
+-						m_backupSetVersion=m_backupSetVersion;
++						m_backupSetVersion=m_activeSetVersion;
+ 						m_activeSetBasename=isd.baseName;
+ 						m_activeSetVersion=isd.activeversion;
+ 						//qDebug()<<"backupSetBasename"<<m_backupSetBasename<<"activeSetBasename"<<m_activeSetBasename;
+diff -up scribus-1.5.4/scribus/ui/vruler.cpp.omv~ scribus-1.5.4/scribus/ui/vruler.cpp
+--- scribus-1.5.4/scribus/ui/vruler.cpp.omv~	2018-10-11 12:43:02.701424477 +0200
++++ scribus-1.5.4/scribus/ui/vruler.cpp	2018-10-11 12:43:34.760651755 +0200
+@@ -137,7 +137,6 @@ void Vruler::paintEvent(QPaintEvent *e)
+ 					tx += QChar(0xBD);
+ 				if ((frac > 0.74) && (frac < 0.76))
+ 					tx += QChar(0xBE);
+-				tx = tx;
+ 				break;
+ 			case SC_P:
+ 			case SC_C:
