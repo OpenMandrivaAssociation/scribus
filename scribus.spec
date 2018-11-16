@@ -7,8 +7,6 @@ Group:		Office
 Url:		http://www.scribus.net/
 Source0:	http://ignum.dl.sourceforge.net/project/%name/%name/%version/%name-%version.tar.xz
 Source10:	scribus.rpmlintrc
-Patch1:		fix-15289.patch
-Patch2:		fix-15289-2.patch
 Patch3:		scribus-1.5.4-fix-warnings.patch
 Patch4:		https://github.com/scribusproject/scribus/commit/d867ec3c386baaed1b8e076dd70b278863411480.patch
 Patch5:		https://github.com/scribusproject/scribus/commit/7d4ceeb5cac32287769e3c0238699e0b3e56c24d.patch
