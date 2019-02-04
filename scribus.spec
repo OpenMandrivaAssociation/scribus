@@ -14,6 +14,7 @@ Patch6:		https://github.com/scribusproject/scribus/commit/76561c1a55cd07c268f8f2
 Patch7:		https://github.com/scribusproject/scribus/commit/8e05d26c19097ac2ad5b4ebbf40a3771ee6faf9c.patch
 Patch8:		scribus-poppler-0.70.patch
 Patch9:		https://github.com/scribusproject/scribus/commit/58b2a685e6b9ef437435ad119912d1e3ea9d2eae.patch
+Patch10:	scribus-1.5.4-poppler-0.72.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils

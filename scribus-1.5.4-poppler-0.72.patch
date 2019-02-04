@@ -1,0 +1,213 @@
+diff -up scribus-1.5.4/scribus/plugins/import/pdf/slaoutput.cpp.omv~ scribus-1.5.4/scribus/plugins/import/pdf/slaoutput.cpp
+--- scribus-1.5.4/scribus/plugins/import/pdf/slaoutput.cpp.omv~	2019-02-04 02:09:16.666464727 +0100
++++ scribus-1.5.4/scribus/plugins/import/pdf/slaoutput.cpp	2019-02-04 02:09:33.801718333 +0100
+@@ -223,7 +223,7 @@ QString AnoOutputDev::getColor(GfxColorS
+ 	else if (color_space->getMode() == csSeparation)
+ 	{
+ 		GfxCMYK cmyk;
+-		QString name = QString(((GfxSeparationColorSpace*)color_space)->getName()->getCString());
++		QString name = QString(((GfxSeparationColorSpace*)color_space)->getName()->c_str());
+ 		double Cc, Mc, Yc, Kc;
+ 		bool isRegistrationColor = (name == "All");
+ 		if (!isRegistrationColor)
+@@ -3183,13 +3183,13 @@ void SlaOutputDev::beginMarkedContent(ch
+ #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 58, 0)
+ 			Object obj = properties->lookup((char*) "Title");
+ 			if (obj.isString())
+-				lName = QString(obj.getString()->getCString());
++				lName = QString(obj.getString()->c_str());
+ #else
+ 			Object obj;
+ 			if (properties->lookup((char*)"Title", &obj))
+ 			{
+ 				if (obj.isString())
+-					lName =  QString(obj.getString()->getCString());
++					lName =  QString(obj.getString()->c_str());
+ 				obj.free();
+ 			}
+ #endif
+@@ -3348,7 +3348,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 
+ 		if (!(fontLoc = gfxFont->locateFont(xref, 0))) {
+ 			error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'",
+-			gfxFont->getName() ? gfxFont->getName()->getCString()
++			gfxFont->getName() ? gfxFont->getName()->c_str()
+ 			: "(unnamed)");
+ 			goto err2;
+ 		}
+@@ -3381,7 +3381,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 				(const char **)((Gfx8BitFont *)gfxFont)->getEncoding())))
+ 			{
+ 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+-				gfxFont->getName() ? gfxFont->getName()->getCString()
++				gfxFont->getName() ? gfxFont->getName()->c_str()
+ 				: "(unnamed)");
+ 				goto err2;
+ 			}
+@@ -3393,7 +3393,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 							(const char **)((Gfx8BitFont *)gfxFont)->getEncoding())))
+ 			{
+ 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+-				gfxFont->getName() ? gfxFont->getName()->getCString()
++				gfxFont->getName() ? gfxFont->getName()->c_str()
+ 				: "(unnamed)");
+ 				goto err2;
+ 			}
+@@ -3405,7 +3405,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 							(const char **)((Gfx8BitFont *)gfxFont)->getEncoding())))
+ 			{
+ 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+-				gfxFont->getName() ? gfxFont->getName()->getCString()
++				gfxFont->getName() ? gfxFont->getName()->c_str()
+ 				: "(unnamed)");
+ 				goto err2;
+ 			}
+@@ -3413,7 +3413,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 		case fontTrueType:
+ 		case fontTrueTypeOT:
+ 			if (fileName)
+-				ff = FoFiTrueType::load(fileName->getCString());
++				ff = FoFiTrueType::load(fileName->c_str());
+ 			else
+ 				ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
+ 			if (ff) {
+@@ -3430,7 +3430,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 							codeToGID, n)))
+ 			{
+ 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+-				gfxFont->getName() ? gfxFont->getName()->getCString()
++				gfxFont->getName() ? gfxFont->getName()->c_str()
+ 				: "(unnamed)");
+ 				goto err2;
+ 			}
+@@ -3442,7 +3442,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 							fontsrc)))
+ 			{
+ 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+-				gfxFont->getName() ? gfxFont->getName()->getCString()
++				gfxFont->getName() ? gfxFont->getName()->c_str()
+ 				: "(unnamed)");
+ 				goto err2;
+ 			}
+@@ -3463,7 +3463,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 							codeToGID, n)))
+ 			{
+ 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+-				gfxFont->getName() ? gfxFont->getName()->getCString()
++				gfxFont->getName() ? gfxFont->getName()->c_str()
+ 				: "(unnamed)");
+ 				goto err2;
+ 			}
+@@ -3481,7 +3481,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 				}
+ 			} else {
+ 				if (fileName)
+-					ff = FoFiTrueType::load(fileName->getCString());
++					ff = FoFiTrueType::load(fileName->c_str());
+ 				else
+ 					ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
+ 				if (! ff)
+@@ -3495,7 +3495,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 							codeToGID, n, faceIndex)))
+ 			{
+ 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+-				gfxFont->getName() ? gfxFont->getName()->getCString()
++				gfxFont->getName() ? gfxFont->getName()->c_str()
+ 				: "(unnamed)");
+ 				goto err2;
+ 			}
+@@ -3597,7 +3597,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 			}
+ 			if (!dfp)
+ 			{
+-		//		error(-1, "Couldn't find a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
++		//		error(-1, "Couldn't find a font for '%s'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+ 				goto err2;
+ 			}
+ 			switch (dfp->kind)
+@@ -3624,28 +3624,28 @@ void SlaOutputDev::updateFont(GfxState *
+ 			case fontType1:
+ 				if (!(fontFile = m_fontEngine->loadType1Font( id, fontsrc, ((Gfx8BitFont *)gfxFont)->getEncoding())))
+ 				{
+-			//		error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
++			//		error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+ 					goto err2;
+ 				}
+ 				break;
+ 			case fontType1C:
+ 				if (!(fontFile = m_fontEngine->loadType1CFont( id, fontsrc, ((Gfx8BitFont *)gfxFont)->getEncoding())))
+ 				{
+-		//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
++		//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+ 					goto err2;
+ 				}
+ 				break;
+ 			case fontType1COT:
+ 				if (!(fontFile = m_fontEngine->loadOpenTypeT1CFont( id, fontsrc, ((Gfx8BitFont *)gfxFont)->getEncoding())))
+ 				{
+-		//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
++		//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+ 					goto err2;
+ 				}
+ 				break;
+ 			case fontTrueType:
+ 			case fontTrueTypeOT:
+ 				if (fileName)
+-					ff = FoFiTrueType::load(fileName->getCString());
++					ff = FoFiTrueType::load(fileName->c_str());
+ 				else
+ 					ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
+ 				if (ff)
+@@ -3661,7 +3661,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 				}
+ 				if (!(fontFile = m_fontEngine->loadTrueTypeFont( id, fontsrc, codeToGID, n)))
+ 				{
+-	//				error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
++	//				error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+ 					goto err2;
+ 				}
+ 			break;
+@@ -3669,14 +3669,14 @@ void SlaOutputDev::updateFont(GfxState *
+ 		case fontCIDType0C:
+ 			if (!(fontFile = m_fontEngine->loadCIDFont( id, fontsrc)))
+ 			{
+-	//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
++	//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+ 				goto err2;
+ 			}
+ 			break;
+ 		case fontCIDType0COT:
+ 			if (!(fontFile = m_fontEngine->loadOpenTypeCFFFont( id, fontsrc)))
+ 			{
+-	//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
++	//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+ 				goto err2;
+ 			}
+ 			break;
+@@ -3696,7 +3696,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 			else
+ 			{
+ 				if (fileName)
+-					ff = FoFiTrueType::load(fileName->getCString());
++					ff = FoFiTrueType::load(fileName->c_str());
+ 				else
+ 					ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
+ 				if (!ff)
+@@ -3706,7 +3706,7 @@ void SlaOutputDev::updateFont(GfxState *
+ 			}
+ 			if (!(fontFile = m_fontEngine->loadTrueTypeFont( id, fontsrc, codeToGID, n, faceIndex)))
+ 			{
+-	//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
++	//			error(-1, "Couldn't create a font for '%s'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+ 				goto err2;
+ 			}
+ 			break;
+@@ -3985,7 +3985,7 @@ QString SlaOutputDev::getColor(GfxColorS
+ 	else if (color_space->getMode() == csSeparation)
+ 	{
+ 		GfxCMYK cmyk;
+-		QString name = QString(((GfxSeparationColorSpace*)color_space)->getName()->getCString());
++		QString name = QString(((GfxSeparationColorSpace*)color_space)->getName()->c_str());
+ 		double Cc, Mc, Yc, Kc;
+ 		bool isRegistrationColor = (name == "All");
+ 		if (!isRegistrationColor)
