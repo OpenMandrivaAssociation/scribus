@@ -1,3 +1,5 @@
+%define _disable_lto 1
+
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
 Version:	1.5.4
