@@ -113,8 +113,8 @@ Development headers for programs that will use Scribus.
 sed -i -e "s/ (Development)//" scribus.desktop.in
 
 %build
-export CC=gcc 
-export CXX=g++
+#export CC=gcc 
+#export CXX=g++
 %cmake_qt5 -DWANT_HUNSPELL:BOOL=ON -DWANT_HEADERINSTALL:BOOL=ON -G Ninja
 %ninja_build
 
