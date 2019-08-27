@@ -1,12 +1,11 @@
-%define snapshot 20190705
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
-Version:	%{snapshot}
-Release:	8
+Version:	1.5.5
+Release:	1
 License:	GPLv2+
 Group:		Office
 Url:		http://www.scribus.net/
-Source0:	http://ignum.dl.sourceforge.net/project/%name/%name/%version/%name-%version.tar.xz
+Source0:	https://downloads.sourceforge.net/project/scribus/scribus-devel/%{version}/scribus-%{version}.tar.xz
 Source10:	scribus.rpmlintrc
 #Patch3:		scribus-1.5.4-fix-warnings.patch
 #Patch4:		https://github.com/scribusproject/scribus/commit/d867ec3c386baaed1b8e076dd70b278863411480.patch
