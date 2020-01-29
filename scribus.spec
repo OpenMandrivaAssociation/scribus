@@ -3,14 +3,18 @@
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
 Version:	1.5.5
-Release:	4
+Release:	5
 License:	GPLv2+
 Group:		Office
 Url:		http://www.scribus.net/
 Source0:	https://downloads.sourceforge.net/project/scribus/scribus-devel/%{version}/scribus-%{version}.tar.xz
 Source10:	scribus.rpmlintrc
-Patch0:		scribus-1.5.5-poppler-84.patch
-Patch1:		scribus-1.5.5-c++17.patch
+Patch0:		scribus-1.5.5-c++17.patch
+# Death to Python 2.x. Now.
+# https://bugs.scribus.net/view.php?id=15030
+# https://bugs.scribus.net/file_download.php?file_id=10660&type=bug
+Patch1:		15030_python3_jghali-2.patch
+Patch2:		scribus-1.5.5-poppler-84.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils
@@ -37,7 +41,7 @@ BuildRequires:	pkgconfig(openscenegraph)
 BuildRequires:	pkgconfig(poppler)
 BuildRequires:	pkgconfig(poppler-cpp)
 BuildRequires:	pkgconfig(poppler-qt5)
-BuildRequires:	pkgconfig(python2)
+BuildRequires:	pkgconfig(python3)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	boost-devel
 BuildRequires:	cups-devel
@@ -104,16 +108,12 @@ Development headers for programs that will use Scribus.
 %prep
 %autosetup -p1
 # We don't need NaziOS crap... And it contains python scripts
-# that 2to3 (called below) will choke on
+# that 2to3 will choke on
 rm -rf OSX-package
 
 # Don't add (Development) to name in program menu, it makes no sense for
 # users
 sed -i -e "s/ (Development)//" scribus.desktop.in
-
-# Various plugins are written in python2 and called through /usr/bin/python...
-# Let's hope 2to3 is sufficient to fix everything they do
-find . -name "*.py" |xargs 2to3 -w
 
 %build
 %cmake_qt5 -DWANT_HUNSPELL:BOOL=ON -DWANT_HEADERINSTALL:BOOL=ON -DWANT_CPP17:BOOL=ON -G Ninja

@@ -162,3 +162,72 @@ diff -up scribus-1.5.5/scribus/plugins/import/pdf/slaoutput.h.omv~ scribus-1.5.5
  	int getBlendMode(GfxState *state);
  	void applyMask(PageItem *ite);
  	void pushGroup(const QString& maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
+diff -up scribus-1.5.5/scribus/plugins/scriptplugin/objimageexport.cpp.omv~ scribus-1.5.5/scribus/plugins/scriptplugin/objimageexport.cpp
+--- scribus-1.5.5/scribus/plugins/scriptplugin/objimageexport.cpp.omv~	2020-01-29 01:24:17.891042693 +0100
++++ scribus-1.5.5/scribus/plugins/scriptplugin/objimageexport.cpp	2020-01-29 01:33:35.625015634 +0100
+@@ -221,7 +221,7 @@ PyTypeObject ImageExport_Type = {
+ 	sizeof(ImageExport),   // int tp_basicsize, /* For allocation */
+ 	0,  // int tp_itemsize; /* For allocation */
+ 	(destructor) ImageExport_dealloc, //	 destructor tp_dealloc;
+-	nullptr, //	 printfunc tp_print;
++	0,       //      tp_vectorcall_offset
+ 	nullptr, //	 getattrfunc tp_getattr;
+ 	nullptr, //	 setattrfunc tp_setattr;
+ 	nullptr, //	 cmpfunc tp_compare;
+@@ -264,6 +264,10 @@ PyTypeObject ImageExport_Type = {
+ 	nullptr, //	 destructor tp_del;
+ 	0, //	 unsigned int tp_version_tag;
+ 	0, //	 destructor tp_finalize;
++	0, // tp_vectorcall
++#if PY_VERSION_HEX < 0x03090000
++	nullptr, // tp_print
++#endif
+ 
+ #ifdef COUNT_ALLOCS
+ 	/* these must be last and never explicitly initialized */
+diff -up scribus-1.5.5/scribus/plugins/scriptplugin/objpdffile.cpp.omv~ scribus-1.5.5/scribus/plugins/scriptplugin/objpdffile.cpp
+--- scribus-1.5.5/scribus/plugins/scriptplugin/objpdffile.cpp.omv~	2020-01-29 01:37:45.954003489 +0100
++++ scribus-1.5.5/scribus/plugins/scriptplugin/objpdffile.cpp	2020-01-29 01:38:30.028001351 +0100
+@@ -1555,7 +1555,7 @@ PyTypeObject PDFfile_Type = {
+ 	/* Methods to implement standard operations */
+ 
+ 	(destructor) PDFfile_dealloc, //     destructor tp_dealloc;
+-	nullptr, //     printfunc tp_print;
++	0, // tp_vectorcall_offset
+ 	nullptr, //     getattrfunc tp_getattr;
+ 	nullptr, //     setattrfunc tp_setattr;
+ 	nullptr, //     cmpfunc tp_compare;
+@@ -1624,6 +1624,10 @@ PyTypeObject PDFfile_Type = {
+ 	nullptr, //     destructor tp_del;
+ 	0, //	 unsigned int tp_version_tag;
+ 	0, //	 destructor tp_finalize;
++	nullptr, //     tp_vectorcall
++#if PY_VERSION_HEX < 0x0309000
++	nullptr, //     printfunc tp_print;
++#endif
+ 
+ #ifdef COUNT_ALLOCS
+ 	/* these must be last and never explicitly initialized */
+diff -up scribus-1.5.5/scribus/plugins/scriptplugin/objprinter.cpp.omv~ scribus-1.5.5/scribus/plugins/scriptplugin/objprinter.cpp
+--- scribus-1.5.5/scribus/plugins/scriptplugin/objprinter.cpp.omv~	2020-01-29 01:35:53.392008950 +0100
++++ scribus-1.5.5/scribus/plugins/scriptplugin/objprinter.cpp	2020-01-29 01:36:44.585006466 +0100
+@@ -517,7 +517,7 @@ PyTypeObject Printer_Type = {
+ 	/* Methods to implement standard operations */
+ 
+ 	(destructor) Printer_dealloc, //     destructor tp_dealloc;
+-	nullptr, //     printfunc tp_print;
++	0, // tp_vectorcall_offset
+ 	nullptr, //     getattrfunc tp_getattr;
+ 	nullptr, //     setattrfunc tp_setattr;
+ 	nullptr, //     cmpfunc tp_compare;
+@@ -586,6 +586,10 @@ PyTypeObject Printer_Type = {
+ 	nullptr, //     destructor tp_del;
+ 	0, //	 unsigned int tp_version_tag;
+ 	0, //	 destructor tp_finalize;
++	nullptr, //     tp_vectorcall
++#if PY_VERSION_HEX < 0x03090000
++	nullptr, //     printfunc tp_print;
++#endif
+ 
+ #ifdef COUNT_ALLOCS
+ 	/* these must be last and never explicitly initialized */
