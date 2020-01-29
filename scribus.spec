@@ -64,6 +64,8 @@ BuildRequires:	pkgconfig(Qt5Quick)
 BuildRequires:	pkgconfig(Qt5PrintSupport)
 
 Requires:	ghostscript-common
+# Scripter crashes on startup if python isn't there
+Requires:	python
 # Currently used in font sampler plugin and calendar plugin
 Recommends:	tkinter
 
