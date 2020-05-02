@@ -16,6 +16,7 @@ Patch0:		scribus-1.5.5-c++17.patch
 Patch1:		15030_python3_jghali-2.patch
 Patch2:		scribus-1.5.5-poppler-84.patch
 Patch3:		scribus-1.5.5-poppler-86.patch
+Patch4:		scribus-1.5.5-qpainterpath.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils
