@@ -2,21 +2,14 @@
 
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
-Version:	1.5.5
-Release:	11
+Version:	1.5.6.1
+Release:	1
 License:	GPLv2+
 Group:		Office
 Url:		http://www.scribus.net/
 Source0:	https://downloads.sourceforge.net/project/scribus/scribus-devel/%{version}/scribus-%{version}.tar.xz
 Source10:	scribus.rpmlintrc
-Patch0:		scribus-1.5.5-c++17.patch
-# Death to Python 2.x. Now.
-# https://bugs.scribus.net/view.php?id=15030
-# https://bugs.scribus.net/file_download.php?file_id=10660&type=bug
-Patch1:		15030_python3_jghali-2.patch
-Patch2:		scribus-1.5.5-poppler-84.patch
-Patch3:		scribus-1.5.5-poppler-86.patch
-Patch4:		scribus-1.5.5-qpainterpath.patch
+Patch0:		scribus-1.5.6.1-compile.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils

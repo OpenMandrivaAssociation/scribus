@@ -1,21 +1,18 @@
-diff -up scribus-1.5.5/scribus/third_party/pgf/PGFplatform.h.omv~ scribus-1.5.5/scribus/third_party/pgf/PGFplatform.h
---- scribus-1.5.5/scribus/third_party/pgf/PGFplatform.h.omv~	2020-01-28 19:37:07.280053317 +0100
-+++ scribus-1.5.5/scribus/third_party/pgf/PGFplatform.h	2020-01-28 19:38:37.492048940 +0100
-@@ -480,7 +480,11 @@ __inline int MulDiv(int nNumber, int nNu
- 	#define ReturnWithError2(err, ret) throw IOException(err)
- #endif //NEXCEPTIONS
+diff -up scribus-1.5.6.1/scribus/third_party/lib2geom/path.h.omv~ scribus-1.5.6.1/scribus/third_party/lib2geom/path.h
+--- scribus-1.5.6.1/scribus/third_party/lib2geom/path.h.omv~	2021-02-08 03:04:45.490601080 +0100
++++ scribus-1.5.6.1/scribus/third_party/lib2geom/path.h	2021-02-08 03:07:02.603183996 +0100
+@@ -257,7 +257,7 @@ protected:
+     for(unsigned i = 0; i <= order; i++) {
+         x[i] = c[i][X]; y[i] = c[i][Y];
+     }
+-    inner = Bezier(x, y);
++    inner = D2<Bezier>(Bezier(x, y));
+   }
+ };
  
-+#if __cplusplus >= 201402L
-+#define THROW_ noexcept(false)
-+#else
- #define THROW_ throw(IOException)
-+#endif
- #define CONST const
- 
- //-------------------------------------------------------------------------------
-diff -up scribus-1.5.5/scribus/third_party/prc/oPRCFile.cc.omv~ scribus-1.5.5/scribus/third_party/prc/oPRCFile.cc
---- scribus-1.5.5/scribus/third_party/prc/oPRCFile.cc.omv~	2020-01-28 19:32:23.603067080 +0100
-+++ scribus-1.5.5/scribus/third_party/prc/oPRCFile.cc	2020-01-28 19:35:02.593059366 +0100
+diff -up scribus-1.5.6.1/scribus/third_party/prc/oPRCFile.cc.omv~ scribus-1.5.6.1/scribus/third_party/prc/oPRCFile.cc
+--- scribus-1.5.6.1/scribus/third_party/prc/oPRCFile.cc.omv~	2021-02-08 03:01:52.078237943 +0100
++++ scribus-1.5.6.1/scribus/third_party/prc/oPRCFile.cc	2021-02-08 03:03:50.767571037 +0100
 @@ -449,9 +449,9 @@ void oPRCFile::doGroup(PRCgroup& group)
                }
                if(!same_color && i>0)
