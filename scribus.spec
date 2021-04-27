@@ -2,7 +2,7 @@
 
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
-Version:	1.5.6.1
+Version:	1.5.7
 Release:	1
 License:	GPLv2+
 Group:		Office
@@ -10,6 +10,7 @@ Url:		http://www.scribus.net/
 Source0:	https://downloads.sourceforge.net/project/scribus/scribus-devel/%{version}/scribus-%{version}.tar.xz
 Source10:	scribus.rpmlintrc
 Patch0:		scribus-1.5.6.1-compile.patch
+Patch1:		scribus-1.5.7-zlib-ng-buildfix.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils
