@@ -3,7 +3,7 @@
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
 Version:	1.5.7
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Office
 Url:		http://www.scribus.net/
@@ -48,6 +48,7 @@ BuildRequires:  qt5-assistant
 BuildRequires:  qt5-designer
 BuildRequires:  qt5-linguist
 BuildRequires:  qt5-linguist-tools
+BuildRequires:  glibc-static-devel
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(Qt5Gui)
