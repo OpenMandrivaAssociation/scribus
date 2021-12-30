@@ -2,11 +2,17 @@
 
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
-Version:	1.5.7.20211205
-Release:	2
+Version:	1.5.7.24788
+Release:	1
 License:	GPLv2+
 Group:		Office
 Url:		http://www.scribus.net/
+# svn co svn://scribus.net/trunk/Scribus
+# cd Scribus
+# REV=$(svn info |grep '^Last Changed Rev' |cut -d: -f2- |xargs echo)
+# svn export . /tmp/scribus-1.5.7.$REV
+# cd /tmp
+# tar cJf scribus-1.5.7.$REV.tar.xz scribus-1.5.7.$REV
 Source0:	https://downloads.sourceforge.net/project/scribus/scribus-devel/%{version}/scribus-%{version}.tar.xz
 Source10:	scribus.rpmlintrc
 Patch0:		scribus-1.5.6.1-compile.patch
