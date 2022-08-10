@@ -1,0 +1,21 @@
+diff -up scribus-1.5.8/scribus/plugins/import/pdf/slaoutput.cpp.omv~ scribus-1.5.8/scribus/plugins/import/pdf/slaoutput.cpp
+--- scribus-1.5.8/scribus/plugins/import/pdf/slaoutput.cpp.omv~	2022-08-10 22:33:15.214184245 +0200
++++ scribus-1.5.8/scribus/plugins/import/pdf/slaoutput.cpp	2022-08-10 22:33:28.528847742 +0200
+@@ -1369,7 +1369,7 @@ void SlaOutputDev::restoreState(GfxState
+ 		m_currentClipPath = m_clipPaths.pop();
+ }
+ 
+-void SlaOutputDev::beginTransparencyGroup(GfxState *state, const double *bbox, GfxColorSpace * /*blendingColorSpace*/, GBool isolated, GBool knockout, GBool forSoftMask)
++void SlaOutputDev::beginTransparencyGroup(GfxState *state, const double *bbox, GfxColorSpace * /*blendingColorSpace*/, bool isolated, bool knockout, bool forSoftMask)
+ {
+ // 	qDebug() << "SlaOutputDev::beginTransparencyGroup isolated:" << isolated << "knockout:" << knockout << "forSoftMask:" << forSoftMask;
+ 	pushGroup("", forSoftMask);
+@@ -1475,7 +1475,7 @@ void SlaOutputDev::endTransparencyGroup(
+ 	tmpSel->clear();
+ }
+ 
+-void SlaOutputDev::setSoftMask(GfxState * /*state*/, const double * bbox, GBool alpha, Function *transferFunc, GfxColor * /*backdropColor*/)
++void SlaOutputDev::setSoftMask(GfxState * /*state*/, const double * bbox, bool alpha, Function *transferFunc, GfxColor * /*backdropColor*/)
+ {
+ 	if (m_groupStack.count() <= 0)
+ 		return;
