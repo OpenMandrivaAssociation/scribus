@@ -3,7 +3,7 @@
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
 Version:	1.5.8
-Release:	4
+Release:	5
 License:	GPLv2+
 Group:		Office
 Url:		http://www.scribus.net/
@@ -25,6 +25,7 @@ Patch6:		scribus-poppler-22.4-from-upstream-25074.patch
 Patch7:		scribus-poppler-22.4-from-upstream-25123.patch
 Patch8:		scribus-poppler-22.4-from-upstream-25124.patch
 Patch9:		scribus-poppler-extrafixes.patch
+Patch10:	scribus-1.5.8-poppler-22.09.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils
