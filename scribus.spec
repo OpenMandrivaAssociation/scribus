@@ -61,6 +61,7 @@ BuildRequires:	cmake(Qt6Network)
 BuildRequires:	cmake(Qt6OpenGL)
 BuildRequires:	cmake(Qt6Quick)
 BuildRequires:	cmake(Qt6PrintSupport)
+BuildRequires:	cmake(Qt6Core5Compat)
 
 Requires:	ghostscript-common
 # Scripter crashes on startup if python isn't there
