@@ -1,0 +1,11 @@
+diff -up scribus-1.5.8.25628/scribus/scstreamfilter_jpeg.h.omv~ scribus-1.5.8.25628/scribus/scstreamfilter_jpeg.h
+--- scribus-1.5.8.25628/scribus/scstreamfilter_jpeg.h.omv~	2023-09-07 13:19:13.159307234 +0200
++++ scribus-1.5.8.25628/scribus/scstreamfilter_jpeg.h	2023-09-07 13:19:21.476374021 +0200
+@@ -9,6 +9,7 @@ for which a new license (GPL+exception)
+ #define SCSTREAMFILTER_JPEG_H
+ 
+ #include <QGlobalStatic>
++#include <QtCore/qminmax.h>
+ #include "scstreamfilter.h"
+ 
+ struct ScJpegEncodeFilterData;

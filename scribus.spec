@@ -2,30 +2,22 @@
 
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
-Version:	1.5.8
-Release:	14
+Version:	1.5.8.25628
+Release:	1
 License:	GPLv2+
 Group:		Office
 Url:		http://www.scribus.net/
+# When packaging a snapshot (sadly, scribus is caught in "release never"):
 # svn co svn://scribus.net/trunk/Scribus
 # cd Scribus
 # REV=$(svn info |grep '^Last Changed Rev' |cut -d: -f2- |xargs echo)
-# svn export . /tmp/scribus-1.5.7.$REV
+# svn export . /tmp/scribus-1.5.8.$REV
 # cd /tmp
-# tar cJf scribus-1.5.7.$REV.tar.xz scribus-1.5.7.$REV
+# tar cJf scribus-1.5.8.$REV.tar.xz scribus-1.5.8.$REV
 Source0:	https://downloads.sourceforge.net/project/scribus/scribus-devel/%{version}/scribus-%{version}.tar.xz
 Source10:	scribus.rpmlintrc
-#:Patch0:		scribus-1.5.6.1-compile.patch
+Patch0:		scribus-1.5.8.25628-compile.patch
 Patch1:		scribus-1.5.7-zlib-ng-buildfix.patch
-Patch2:		scribus-poppler-22.2-from-upstream-svn24883.patch
-Patch3:		scribus-poppler-22.2-from-upstream-24885.patch
-Patch4:		scribus-poppler-22.3-from-upstream-24982.patch
-Patch5:		scribus-poppler-22.3-from-upstream-24985.patch
-Patch6:		scribus-poppler-22.4-from-upstream-25074.patch
-Patch7:		scribus-poppler-22.4-from-upstream-25123.patch
-Patch8:		scribus-poppler-22.4-from-upstream-25124.patch
-Patch9:		scribus-poppler-extrafixes.patch
-Patch10:	scribus-1.5.8-poppler-22.09.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils
@@ -51,7 +43,7 @@ BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(openscenegraph)
 BuildRequires:	pkgconfig(poppler)
 BuildRequires:	pkgconfig(poppler-cpp)
-BuildRequires:	pkgconfig(poppler-qt5)
+BuildRequires:	pkgconfig(poppler-qt6)
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	boost-devel
@@ -59,26 +51,26 @@ BuildRequires:	cups-devel
 BuildRequires:	hyphen-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	podofo-devel
-BuildRequires:  qt5-assistant
-BuildRequires:  qt5-designer
-BuildRequires:  qt5-linguist
-BuildRequires:  qt5-linguist-tools
-BuildRequires:	pkgconfig(Qt5Core)
-BuildRequires:	pkgconfig(Qt5Widgets)
-BuildRequires:	pkgconfig(Qt5Gui)
-BuildRequires:	pkgconfig(Qt5Xml)
-BuildRequires:	pkgconfig(Qt5WebKit)
-BuildRequires:	pkgconfig(Qt5WebKitWidgets)
-BuildRequires:	pkgconfig(Qt5Network)
-BuildRequires:	pkgconfig(Qt5OpenGL)
-BuildRequires:	pkgconfig(Qt5Quick)
-BuildRequires:	pkgconfig(Qt5PrintSupport)
+BuildRequires:	cmake(Qt6)
+BuildRequires:	cmake(Qt6Core)
+BuildRequires:	cmake(Qt6Widgets)
+BuildRequires:	cmake(Qt6Gui)
+BuildRequires:	cmake(Qt6Xml)
+BuildRequires:	cmake(Qt6WebEngineWidgets)
+BuildRequires:	cmake(Qt6Network)
+BuildRequires:	cmake(Qt6OpenGL)
+BuildRequires:	cmake(Qt6Quick)
+BuildRequires:	cmake(Qt6PrintSupport)
 
 Requires:	ghostscript-common
 # Scripter crashes on startup if python isn't there
 Requires:	python
 # Currently used in font sampler plugin and calendar plugin
 Recommends:	tkinter
+
+# Nothing outside of scribus uses the headers (and the corresponding
+# libraries aren't installed anyway)
+Obsoletes:	%{name}-devel < %{EVRD}
 
 %description
 Scribus is a desktop open source page layout program with the aim of
@@ -101,22 +93,9 @@ separations.
 %{_datadir}/applications/*.desktop
 %{_datadir}/metainfo/scribus.appdata.xml
 %{_datadir}/mime/packages/*.xml
-%{_iconsdir}/hicolor/*/apps/%{name}.png
+%{_iconsdir}/hicolor/*/apps/%{name}.*
+%{_datadir}/icons/hicolor/*/mimetypes/application-vnd.scribus.*
 %doc %{_datadir}/doc/%{name}*
-
-#--------------------------------------------------------------------
-
-%package devel
-Summary:	Development headers for programs that will use Scribus
-Group:		Development/C++
-
-%description devel
-Development headers for programs that will use Scribus.
-
-%files devel
-%{_includedir}/%{name}
-
-#--------------------------------------------------------------------
 
 %prep
 %autosetup -p1
@@ -128,9 +107,14 @@ rm -rf OSX-package
 # users
 sed -i -e "s/ (Development)//" scribus.desktop.in
 
+%cmake \
+	-DWANT_HUNSPELL:BOOL=ON \
+	-DWANT_HEADERINSTALL:BOOL=OFF \
+	-DWANT_CPP17:BOOL=ON \
+	-G Ninja
+
 %build
-%cmake_qt5 -DWANT_HUNSPELL:BOOL=ON -DWANT_HEADERINSTALL:BOOL=ON -DWANT_CPP17:BOOL=ON -G Ninja
-%ninja_build
+%ninja_build -C build
 
 %install
 %ninja_install -C build
@@ -144,11 +128,12 @@ desktop-file-install --vendor='' \
 	--add-category='X-MandrivaLinux-CrossDesktop'\
 	%{name}.desktop
 
-# install icons for hicolor and old WM
-mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48}/apps
-convert -resize 16x16 resources/iconsets/1_5_0/scribus.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
-convert -resize 32x32 resources/iconsets/1_5_0/scribus.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
-convert -resize 48x48 resources/iconsets/1_5_0/scribus.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
+# No need to ship headers and static libraries for something not used anywhere else
+rm -rf \
+	%{buildroot}%{_includedir} \
+	%{buildroot}%{_prefix}/lib/*.a \
+	%{buildroot}%{_prefix}/lib/cmake
 
-# we do not need KDE stuff
-rm -f %{buildroot}%{_datadir}/mimelnk/application/vnd.scribus.desktop
+# Or stuff in weird places
+rm -rf \
+	%{buildroot}%{_prefix}/license
