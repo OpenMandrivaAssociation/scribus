@@ -20,6 +20,7 @@ Source10:	scribus.rpmlintrc
 Patch1:		scribus-1.5.7-zlib-ng-buildfix.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
+BuildRequires:	gettext
 BuildRequires:	desktop-file-utils
 BuildRequires:	imagemagick
 BuildRequires:	pkgconfig(cairo)
