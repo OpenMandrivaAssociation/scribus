@@ -116,6 +116,7 @@ sed -i -e "s/ (Development)//" scribus.desktop.in
 	-DWANT_HUNSPELL:BOOL=ON \
 	-DWANT_HEADERINSTALL:BOOL=OFF \
 	-DWANT_CPP17:BOOL=ON \
+	-DWANT_QT6:BOOL=ON \
 	-G Ninja
 
 %build
