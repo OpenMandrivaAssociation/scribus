@@ -33,12 +33,15 @@ BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libcdr-0.1)
+BuildRequires:	pkgconfig(libzmf-0.0)
+BuildRequires:	pkgconfig(libqxp-0.0)
 BuildRequires:	pkgconfig(libfreehand-0.1)
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(libvisio-0.1)
+BuildRequires:	pkgconfig(xcb-xkb)
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(openscenegraph)
 BuildRequires:	pkgconfig(poppler)
@@ -66,6 +69,7 @@ BuildRequires:	cmake(Qt6Core5Compat)
 BuildRequires:	cmake(Qt6OpenGLWidgets)
 BuildRequires:	cmake(Qt6LinguistTools)
 BuildRequires:	cmake(Qt6Svg)
+BuildRequires:	qt6-qttools-linguist-tools
 
 Requires:	ghostscript-common
 # Scripter crashes on startup if python isn't there
@@ -112,6 +116,7 @@ rm -rf OSX-package
 # users
 sed -i -e "s/ (Development)//" scribus.desktop.in
 
+export PATH=%{_qtdir}/bin:$PATH
 %cmake \
 	-DWANT_HUNSPELL:BOOL=ON \
 	-DWANT_HEADERINSTALL:BOOL=OFF \
