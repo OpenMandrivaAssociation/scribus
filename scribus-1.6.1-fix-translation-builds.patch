@@ -1,0 +1,12 @@
+diff -up scribus-1.6.1/resources/translations/CMakeLists.txt.omv~ scribus-1.6.1/resources/translations/CMakeLists.txt
+--- scribus-1.6.1/resources/translations/CMakeLists.txt.omv~	2024-01-08 02:33:23.461490050 +0100
++++ scribus-1.6.1/resources/translations/CMakeLists.txt	2024-01-08 02:33:29.401550724 +0100
+@@ -2,7 +2,7 @@ include_directories(
+ "${CMAKE_SOURCE_DIR}/scribus"
+ )
+ 
+-set(LRELEASE_EXECUTABLE ${Qt5_LRELEASE_EXECUTABLE})
++set(LRELEASE_EXECUTABLE "/usr/lib64/qt6/bin/lrelease")
+ 
+ #Install our qm files, selected from *.qm in this directory
+ file( GLOB SCRIBUS_TS_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.ts )

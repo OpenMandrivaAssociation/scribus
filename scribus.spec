@@ -18,6 +18,7 @@ Source0:	https://downloads.sourceforge.net/project/scribus/scribus/%{version}/sc
 Source10:	scribus.rpmlintrc
 #Patch0:		scribus-1.5.8.25628-compile.patch
 Patch1:		scribus-1.5.7-zlib-ng-buildfix.patch
+Patch2:		scribus-1.6.1-fix-translation-builds.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils
