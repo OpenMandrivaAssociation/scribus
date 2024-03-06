@@ -1,0 +1,47 @@
+diff -up scribus-1.6.1/scribus/plugins/import/pdf/slaoutput.cpp.omv~ scribus-1.6.1/scribus/plugins/import/pdf/slaoutput.cpp
+--- scribus-1.6.1/scribus/plugins/import/pdf/slaoutput.cpp.omv~	2024-03-06 19:46:29.880398761 +0100
++++ scribus-1.6.1/scribus/plugins/import/pdf/slaoutput.cpp	2024-03-06 19:49:16.536062114 +0100
+@@ -1731,7 +1731,7 @@ bool SlaOutputDev::axialShadedFill(GfxSt
+ 	VGradient FillGradient = VGradient(VGradient::linear);
+ 	FillGradient.clearStops();
+ 	GfxColorSpace *color_space = shading->getColorSpace();
+-	if (func->getType() == 3)
++	if (func->getType() == Function::Type::Stitching)
+ 	{
+ 		StitchingFunction *stitchingFunc = (StitchingFunction*)func;
+ 		const double *bounds = stitchingFunc->getBounds();
+@@ -1753,7 +1753,7 @@ bool SlaOutputDev::axialShadedFill(GfxSt
+ 			FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor], m_doc, shade), stopPoint, 0.5, 1.0, stopColor, shade );
+ 		}
+ 	}
+-	else if ((func->getType() == 2) || (func->getType() == 0))
++	else if ((func->getType() == Function::Type::Exponential) || (func->getType() == Function::Type::Sampled))
+ 	{
+ 		GfxColor stop1;
+ 		shading->getColor(0.0, &stop1);
+@@ -1865,7 +1865,7 @@ bool SlaOutputDev::radialShadedFill(GfxS
+ 	VGradient FillGradient = VGradient(VGradient::linear);
+ 	FillGradient.clearStops();
+ 	GfxColorSpace *color_space = shading->getColorSpace();
+-	if (func->getType() == 3)
++	if (func->getType() == Function::Type::Stitching)
+ 	{
+ 		StitchingFunction *stitchingFunc = (StitchingFunction*)func;
+ 		const double *bounds = stitchingFunc->getBounds();
+@@ -1887,7 +1887,7 @@ bool SlaOutputDev::radialShadedFill(GfxS
+ 			FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor], m_doc, shade), stopPoint, 0.5, 1.0, stopColor, shade );
+ 		}
+ 	}
+-	else if ((func->getType() == 2) || (func->getType() == 0))
++	else if ((func->getType() == Function::Type::Exponential) || (func->getType() == Function::Type::Sampled))
+ 	{
+ 		GfxColor stop1;
+ 		shading->getColor(0.0, &stop1);
+@@ -2954,7 +2954,6 @@ void SlaOutputDev::updateFont(GfxState *
+ 	SplashFontFile *fontFile;
+ 	SplashFontSrc *fontsrc = nullptr;
+ 	Object refObj, strObj;
+-	int tmpBufLen = 0;
+ 	int *codeToGID = nullptr;
+ 	const double *textMat = nullptr;
+ 	double m11, m12, m21, m22, fontSize;

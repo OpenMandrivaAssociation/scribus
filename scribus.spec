@@ -3,7 +3,7 @@
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
 Version:	1.6.1
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Office
 Url:		http://www.scribus.net/
@@ -21,6 +21,7 @@ Patch1:		scribus-1.5.7-zlib-ng-buildfix.patch
 # FIXME This is currently too big (essentially pulling the Qt6 fixes from 1.7,
 # but also pulling some unrelated bits and pieces)
 Patch2:		scribus-qt6.patch
+Patch3:		scribus-1.6.1-poppler-24.03.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils
