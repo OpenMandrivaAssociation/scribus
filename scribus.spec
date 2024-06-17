@@ -24,6 +24,7 @@ Patch1:		scribus-1.5.7-zlib-ng-buildfix.patch
 #Patch3:		scribus-1.6.1-poppler-24.03.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
+BuildRequires:	gettext
 BuildRequires:	desktop-file-utils
 BuildRequires:	imagemagick
 BuildRequires:	pkgconfig(cairo)
