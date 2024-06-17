@@ -2,11 +2,11 @@
 
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
-Version:	1.6.1
-Release:	6
+Version:	1.6.2
+Release:	1
 License:	GPLv2+
 Group:		Office
-Url:		http://www.scribus.net/
+Url:		https://www.scribus.net/
 # When packaging a snapshot (sadly, scribus is caught in "release never"):
 # svn co svn://scribus.net/trunk/Scribus
 # cd Scribus
