@@ -6,7 +6,7 @@ Version:	1.6.1
 Release:	9
 License:	GPLv2+
 Group:		Office
-Url:		http://www.scribus.net/
+Url:		https://www.scribus.net/
 # When packaging a snapshot (sadly, scribus is caught in "release never"):
 # svn co svn://scribus.net/trunk/Scribus
 # cd Scribus
