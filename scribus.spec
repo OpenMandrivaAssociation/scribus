@@ -2,8 +2,8 @@
 
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
-Version:	1.6.1
-Release:	9
+Version:	1.7.0.26352
+Release:	1
 License:	GPLv2+
 Group:		Office
 Url:		https://www.scribus.net/
@@ -18,10 +18,6 @@ Source0:	https://downloads.sourceforge.net/project/scribus/scribus/%{version}/sc
 Source10:	scribus.rpmlintrc
 #Patch0:		scribus-1.5.8.25628-compile.patch
 Patch1:		scribus-1.5.7-zlib-ng-buildfix.patch
-# FIXME This is currently too big (essentially pulling the Qt6 fixes from 1.7,
-# but also pulling some unrelated bits and pieces)
-Patch2:		scribus-qt6.patch
-Patch3:		scribus-1.6.1-poppler-24.03.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils
@@ -147,7 +143,9 @@ desktop-file-install --vendor='' \
 rm -rf \
 	%{buildroot}%{_includedir} \
 	%{buildroot}%{_prefix}/lib/*.a \
-	%{buildroot}%{_prefix}/lib/cmake
+	%{buildroot}%{_prefix}/lib/cmake \
+	%{buildroot}%{_libdir}/cmake \
+	%{buildroot}%{_libdir}/*.a
 
 # Or stuff in weird places
 rm -rf \
