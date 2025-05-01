@@ -3,7 +3,7 @@
 Summary:	Scribus - Open Source Page Layout
 Name:		scribus
 Version:	1.7.0.26570
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Office
 Url:		https://www.scribus.net/
