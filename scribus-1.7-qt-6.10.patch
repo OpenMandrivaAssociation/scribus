@@ -1,0 +1,12 @@
+diff -up scribus-1.7.0.27030/scribus/third_party/Qt-Advanced-Docking-System/CMakeLists.txt.omv~ scribus-1.7.0.27030/scribus/third_party/Qt-Advanced-Docking-System/CMakeLists.txt
+--- scribus-1.7.0.27030/scribus/third_party/Qt-Advanced-Docking-System/CMakeLists.txt.omv~	2025-09-25 20:18:20.443439118 +0200
++++ scribus-1.7.0.27030/scribus/third_party/Qt-Advanced-Docking-System/CMakeLists.txt	2025-09-25 20:18:32.904523644 +0200
+@@ -4,6 +4,8 @@ set(ADS_VERSION "4.3.0")
+ 
+ cmake_minimum_required(VERSION 3.16)
+ 
++include_directories(/usr/lib64/qt6/include/QtGui/6.10.0/QtGui/)
++
+ if (POLICY CMP0091)
+   cmake_policy(SET CMP0091 NEW)
+ endif (POLICY CMP0091)
