@@ -19,7 +19,10 @@ Source10:	scribus.rpmlintrc
 #Patch0:		scribus-1.5.8.25628-compile.patch
 Patch1:		scribus-1.5.7-zlib-ng-buildfix.patch
 Patch2:		scribus-1.7-qt-6.10.patch
-#Patch3:		scribus-1.7.2-poppler-26.02.patch
+Patch3:		https://github.com/scribusproject/scribus/commit/14a287fc1db2a44abfe1743260554447b31b4adf.patch
+Patch4:		https://github.com/scribusproject/scribus/commit/3aed8aa40d01d1affd2b55b107b48878d4b06eab.patch
+Patch5:		https://github.com/scribusproject/scribus/commit/2b9405a00a96a09e0183190ddc9f83d44963d4e0.patch
+
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils
