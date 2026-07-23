@@ -21,6 +21,8 @@ Patch1:		scribus-1.5.7-zlib-ng-buildfix.patch
 Patch2:		scribus-1.7-qt-6.10.patch
 # Poppler 26.5.0
 Patch3:		https://github.com/scribusproject/scribus/commit/72d5c2b47dce2ee6bcd4f12b410c9684755536c6.patch
+# Poppler 26.6.0
+Patch4:		https://github.com/scribusproject/scribus/commit/2b9405a00a96a09e0183190ddc9f83d44963d4e0.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils
