@@ -18,8 +18,9 @@ Source0:	https://downloads.sourceforge.net/project/scribus/scribus-devel/%{versi
 Source10:	scribus.rpmlintrc
 #Patch0:		scribus-1.5.8.25628-compile.patch
 Patch1:		scribus-1.5.7-zlib-ng-buildfix.patch
-Patch2:		scribus-1.7-qt-6.10.patch
-#Patch3:		scribus-1.7.2-poppler-26.02.patch
+Patch3:		scribus-1.7.3-poppler-26.05.patch
+Patch4:		scribus-1.7.3-poppler-26.06.patch
+Patch5:		scribus-1.7.3-poppler-26.07.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	desktop-file-utils
