@@ -1,0 +1,30 @@
+--- a/scribus/plugins/import/ps/importps.cpp	2026-10-25 20:26:42.756511596 +0100
++++ b/scribus/plugins/import/ps/importps.cpp	2026-10-25 20:26:42.756549887 +0100
+@@ -150,6 +150,19 @@
+ 	{
+ 		try
+ 		{
++#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
++			// PODOFO_MINOR is not a PoDoFo macro (undefined, so 0), which
++			// made the checks below take the pre-0.10 branch on 0.10 and 1.x.
++			PoDoFo::PdfMemDocument doc;
++			doc.Load(fName.toLocal8Bit().data());
++			if (doc.GetPages().GetCount() > 0)
++			{
++				PoDoFo::PdfPage& curPage = doc.GetPages().GetPageAt(0);
++				PoDoFo::Rect rect = curPage.GetMediaBox();
++				b = rect.Width - rect.GetLeft();
++				h = rect.Height - rect.GetBottom();
++			}
++#else
+ 			PoDoFo::PdfError::EnableDebug( false );
+ #if (PODOFO_VERSION == 0 && PODOFO_MINOR < 10)
+ 		PoDoFo::PdfError::EnableLogging( false );
+@@ -166,6 +179,7 @@
+ 				b = rect.GetWidth() - rect.GetLeft();
+ 				h = rect.GetHeight() - rect.GetBottom();
+ 			}
++#endif
+ 		}
+ 		catch(PoDoFo::PdfError& e)
+ 		{
