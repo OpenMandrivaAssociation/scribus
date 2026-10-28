@@ -106,6 +106,8 @@ separations.
 %{_iconsdir}/hicolor/*/apps/%{name}.*
 %{_datadir}/icons/hicolor/*/mimetypes/application-vnd.scribus.*
 %doc %{_datadir}/doc/%{name}*
+# Qt Advanced Docking System installs its license here.
+%{_datadir}/ads
 
 %prep
 %autosetup -p1
